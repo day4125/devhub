@@ -18,24 +18,20 @@
     <title>DevHub</title>
   </head>
   <body>
-    <header>
-      <h1>DevHub</h1>
-    </header>
-
+    <header></header>
     <main>
       <section id="tools">
-        <h2>Tools</h2>
-        <p>Useful development-related tools will be available here.</p>
-        <ul>
-          <li>
-            <a href="grocery-list.html">Inköpslista</a> (will be a separate
-            page)
-          </li>
-        </ul>
+        <div id="input-area">
+          <input type="text" id="grocery-item" placeholder="Lägg till vara" />
+          <button id="add-button">Lägg till</button>
+          <button id="clear-all-button">Rensa alla</button>
+        </div>
+        <ul id="grocery-list"></ul>
       </section>
     </main>
 
     <footer>
+      <h1>Inköpslista</h1>
       <p>&copy; Sinnesrubbad</p>
     </footer>
 
