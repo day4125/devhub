@@ -15,7 +15,7 @@
     <meta name="apple-mobile-web-app-title" content="DevHub" />
     <link rel="apple-touch-icon" href="/images/icon.png" />
     <link rel="stylesheet" href="style.css" />
-    <title>DevHub</title>
+    <title>DevHub - Tools</title>
   </head>
   <body>
     <button
@@ -25,42 +25,56 @@
     >
       ☀️
     </button>
+    <main class="main-wrapper">
+      <div class="tool-grid">
+        <div id="text-manipulator-card" class="tool-card">
+          <h1>Textmanipulator</h1>
 
-    <div class="container">
-      <h1>Textmanipulator</h1>
+          <div class="input-area">
+            <textarea
+              id="inputText"
+              placeholder="Skriv eller klistra in text här..."
+              rows="8"
+            ></textarea>
+          </div>
 
-      <div class="input-area">
-        <textarea id="inputText" rows="8"></textarea>
-      </div>
-
-      <div class="button-area">
-        <button onclick="transformText('toUpperCase')">Versaler</button>
-        <button onclick="transformText('toLowerCase')">Gemener</button>
-        <button onclick="transformText('capitalize')">
-          Stor Begynnelsebokstav
-        </button>
-        <button onclick="transformText('removeExtraSpaces')">
-          Ta bort extra blanksteg
-        </button>
-        <button onclick="extractInformation('email')">
-          Extrahera e-postadresser
-        </button>
-        <button onclick="extractInformation('url')">Extrahera URL</button>
-      </div>
-      <hr />
-      <div class="picker">
-        <div
-          class="color-preview"
-          id="colorPreview"
-          title="Klicka för att kopiera hex-kod"
-        >
-          <span class="color-label">Klicka för att kopiera hex-kod</span>
+          <div class="button-area">
+            <button onclick="transformText('toUpperCase')">Versaler</button>
+            <button onclick="transformText('toLowerCase')">Gemener</button>
+            <button onclick="transformText('capitalize')">
+              Stor Begynnelsebokstav
+            </button>
+            <button onclick="transformText('removeExtraSpaces')">
+              Ta bort extra blanksteg
+            </button>
+            <button onclick="extractInformation('email')">
+              Extrahera e-postadresser
+            </button>
+            <button onclick="extractInformation('url')">Extrahera URL</button>
+          </div>
         </div>
-        <input type="color" id="colorInput" value="#4CAF50" />
-        <div class="hex" id="hexOutput">#4CAF50</div>
-      </div>
-    </div>
 
+        <div id="color-picker-card" class="tool-card picker">
+          <h2>Färgväljare</h2>
+          <div class="color-controls">
+            <div
+              class="color-preview"
+              id="colorPreview"
+              title="Klicka för att kopiera hex-kod"
+            >
+              <span class="color-label">Klicka för att kopiera hex-kod</span>
+            </div>
+            <input
+              type="color"
+              id="colorInput"
+              value="#4CAF50"
+              aria-label="Välj färg"
+            />
+            <div class="hex" id="hexOutput">#4CAF50</div>
+          </div>
+        </div>
+      </div>
+    </main>
     <script src="script.js"></script>
   </body>
 </html>

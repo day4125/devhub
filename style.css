@@ -1,13 +1,34 @@
+/* --- Base and Body --- */
 body {
   font-family: "Roboto", sans-serif;
-  margin: 0;
+  margin: 20px;
   background-color: #f8f9fa;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+  /* Removed flexbox layout - now handled by grid */
   transition: background-color 0.3s ease, color 0.3s ease;
   color: #202124;
+  padding-top: 80px; /* Add padding to prevent content going under fixed button */
+  padding-bottom: 20px;
+}
+
+.main-wrapper {
+  display: flex;
+  margin: 0 auto;
+  flex-direction: column;
+  align-items: center; /* Center the grid */
+  justify-content: center; /* Center the grid */
+  min-height: calc(100vh - 80px); /* Full height minus button space */
+  width: 90%;
+  max-width: 700px;
+}
+
+.main-bwrapper {
+  dosplay: flex;
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 700px;
 }
 
 body.dark-mode {
@@ -15,126 +36,7 @@ body.dark-mode {
   color: #e0e0e0;
 }
 
-.container {
-  background-color: #fff;
-  padding: 40px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  width: 90%;
-  max-width: 700px;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-body.dark-mode .container {
-  background-color: #1e1e1e;
-  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
-}
-
-h1 {
-  text-align: center;
-  margin-bottom: 30px;
-  color: #3c4043;
-  font-size: 2.4rem;
-  font-weight: 500;
-  transition: color 0.3s ease;
-}
-
-body.dark-mode h1 {
-  color: #e0e0e0;
-}
-
-label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 500;
-  color: #3c4043;
-  transition: color 0.3s ease;
-}
-
-body.dark-mode label {
-  color: #e0e0e0;
-}
-
-textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #d8dee2;
-  border-radius: 4px;
-  box-sizing: border-box;
-  font-size: 16px;
-  line-height: 1.5;
-  color: #202124;
-  transition: border-color 0.3s ease, background-color 0.3s ease,
-    color 0.3s ease;
-}
-
-body.dark-mode textarea {
-  background-color: #333;
-  color: #e0e0e0;
-  border-color: #555;
-}
-
-textarea:focus {
-  outline: none;
-  border-color: #4285f4;
-  box-shadow: 0 0 4px rgba(66, 133, 244, 0.3);
-}
-
-body.dark-mode textarea:focus {
-  border-color: #4285f4;
-  box-shadow: 0 0 4px rgba(66, 133, 244, 0.5);
-}
-
-.button-area {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 10px;
-  margin-bottom: 30px;
-  justify-content: flex-start;
-}
-
-button {
-  padding: 10px 18px;
-  border: none;
-  border-radius: 6px;
-  background-color: #f8f9fa;
-  color: #3c4043;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-body.dark-mode button {
-  background-color: #555;
-  color: #e0e0e0;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-}
-
-button:hover {
-  background-color: #e8eaed;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
-}
-
-body.dark-mode button:hover {
-  background-color: #666;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
-}
-
-input {
-  border-radius: 12px;
-}
-
-button:focus {
-  outline: none;
-  border: 1px solid #4285f4;
-}
-
-body.dark-mode button:focus {
-  border: 1px solid #4285f4;
-}
-
+/* --- Theme Toggle (Remains the same) --- */
 .theme-toggle-button {
   position: fixed;
   top: 20px;
@@ -176,40 +78,198 @@ body.dark-mode .theme-toggle-button {
   box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.5);
 }
 
-/* Color picker */
+/* --- Grid Layout --- */
+.tool-grid {
+  display: grid;
+  /* Create 3 equal columns */
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px; /* Space between cards */
+  padding: 25px; /* Padding around the grid */
+  max-width: 1400px; /* Max width of the grid */
+  margin: 0 auto; /* Center the grid */
+}
 
-.picker {
+/* --- Tool Card Styling --- */
+.tool-card {
+  background-color: #fff;
+  border-radius: 12px; /* Softer corners */
+  padding: 25px; /* Padding inside cards */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  /* Ensure cards can contain their content */
+  overflow: hidden;
+  /* Base height behavior, adjust if needed */
+  height: fit-content; /* Allow card height to adjust to content */
+}
+
+body.dark-mode .tool-card {
+  background-color: #1e1e1e;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
+}
+
+/* --- Specific Card Spanning --- */
+#text-manipulator-card {
+  grid-column: span 3; /* Make this card take 2 columns */
+}
+
+#color-picker-card {
+  grid-column: span 1; /* Make this card take 1 column (default, but explicit) */
+}
+
+/* --- Text Manipulator Card Content --- */
+#text-manipulator-card h1 {
+  text-align: center;
+  margin-top: 0; /* Remove top margin */
+  margin-bottom: 25px;
+  color: #3c4043;
+  font-size: 1.8rem; /* Slightly smaller heading */
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+body.dark-mode #text-manipulator-card h1 {
+  color: #e0e0e0;
+}
+
+#text-manipulator-card .input-area {
+  margin-bottom: 20px; /* Space below textarea */
+}
+
+#text-manipulator-card textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d8dee2;
+  border-radius: 6px; /* Consistent corners */
+  box-sizing: border-box;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #202124;
+  background-color: #f8f9fa; /* Slightly different background */
+  transition: border-color 0.3s ease, background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+body.dark-mode #text-manipulator-card textarea {
+  background-color: #333;
+  color: #e0e0e0;
+  border-color: #555;
+}
+
+#text-manipulator-card textarea:focus {
+  outline: none;
+  border-color: #4285f4;
+  box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.3);
+}
+
+body.dark-mode #text-manipulator-card textarea:focus {
+  box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.5);
+}
+
+#text-manipulator-card .button-area {
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-start; /* Align buttons left */
+}
+
+#text-manipulator-card button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  background-color: #e8eaed; /* Slightly darker buttons */
+  color: #3c4043;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode #text-manipulator-card button {
+  background-color: #444; /* Dark mode button background */
+  color: #e0e0e0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+#text-manipulator-card button:hover {
+  background-color: #d8dade;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+body.dark-mode #text-manipulator-card button:hover {
+  background-color: #555;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+#text-manipulator-card button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.5); /* Focus ring */
+}
+
+/* --- Color Picker Card Content --- */
+/* The .picker class now styles the *content* area within the card */
+.picker {
+  /* Remove card styles - handled by .tool-card */
+  /* background-color: #f9f9f9; */
+  /* border: 1px solid #eee; */
+  /* border-radius: 8px; */
+  /* padding: 20px; */
+  /* width: auto; */
+  /* max-width: 700px; */
+  /* box-sizing: border-box; */
+
+  /* Keep/Add internal layout styles */
+  display: flex;
+  flex-direction: column; /* Stack heading and controls */
+  align-items: center; /* Center items horizontally */
   gap: 20px;
   font-family: sans-serif;
-  padding: 20px;
-  border: 1px solid #eee;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-  /* Make width consistent with .container */
-  width: 90%; /* Add this */
-  max-width: 700px; /* Keep this (or adjust as needed) */
-  box-sizing: border-box;
-  transition: background-color 0.3s ease, border-color 0.3s ease;
+  height: 100%; /* Try to fill card height */
+  justify-content: center; /* Vertically center content */
+}
+
+.picker h2 {
+  margin-top: 0;
+  margin-bottom: 10px; /* Adjust space below heading */
+  font-size: 1.5rem; /* Consistent heading size */
+  text-align: center;
+  color: #3c4043;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+body.dark-mode .picker h2 {
+  color: #e0e0e0;
+}
+
+.picker .color-controls {
+  display: flex;
+  align-items: center; /* Align preview, input, hex */
+  justify-content: center; /* Center controls horizontally */
+  gap: 20px; /* Space between controls */
+  flex-wrap: wrap; /* Allow wrapping on narrow views if needed */
 }
 
 .color-preview {
-  width: 100px;
-  height: 100px;
-  border-radius: 6px;
+  width: 80px; /* Slightly smaller */
+  height: 80px;
+  border-radius: 8px; /* Match card corners */
   border: 1px solid #ccc;
   cursor: pointer;
   position: relative;
-  transition: transform 0.1s ease, background-color 0.3s ease;
+  transition: transform 0.1s ease, background-color 0.3s ease,
+    border-color 0.3s ease;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  flex-shrink: 0;
+}
+body.dark-mode .color-preview {
+  border-color: #555;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
 .color-label {
-  font-size: 0.9rem;
+  font-size: 0.8rem; /* Slightly smaller */
   color: white;
   text-align: center;
   pointer-events: none;
@@ -223,22 +283,106 @@ body.dark-mode .theme-toggle-button {
 }
 
 .hex {
-  font-size: 1.1em;
+  font-size: 1rem;
   font-weight: bold;
   letter-spacing: 1px;
   color: #333;
+  transition: color 0.3s ease;
+  flex-shrink: 0;
+  background-color: #f0f0f0; /* Add background for clarity */
+  padding: 5px 10px;
+  border-radius: 4px;
+  min-width: 7ch; /* Ensure space for #RRGGBB */
+  text-align: center;
 }
 
-/* Återställer standardutseendet för color-inputen */
+body.dark-mode .hex {
+  color: #e0e0e0;
+  background-color: #333;
+}
+
 input[type="color"] {
-  /* Tidigare regler som -webkit-appearance: none;, width, height, border etc. är borttagna
-     så att webbläsaren ritar upp den som standard, inklusive spektrumet.
-     Vi behåller bara flex-shrink för att den inte ska krympa i flexcontainern om nödvändigt. */
-  flex-shrink: 0; /* Hindra input från att krympa */
-  cursor: pointer; /* Behåll pekaren */
-  /* Eventuellt kan du lägga till en liten marginal om den sitter för nära intilliggande element */
-  /* margin: 0; eller margin-right: 10px; */
+  flex-shrink: 0;
+  cursor: pointer;
+  width: 45px; /* Adjust size */
+  height: 45px;
+  border: none;
+  padding: 0;
+  background: none;
+  border-radius: 6px;
+  overflow: hidden;
+}
+input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+input[type="color"]::-webkit-color-swatch {
+  border: none;
+  border-radius: 6px;
+}
+input[type="color"]::-moz-color-swatch {
+  border: none;
+  border-radius: 6px;
 }
 
-/* Reglerna för ::-webkit-color-swatch-wrapper, ::-webkit-color-swatch etc. är också borttagna
-   eftersom vi vill ha standardutseendet. */
+/* --- Responsive Design --- */
+@media (max-width: 992px) {
+  /* Tablet breakpoint */
+  .tool-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
+  }
+  #text-manipulator-card {
+    grid-column: span 1; /* Text tool takes 1 column */
+  }
+  #color-picker-card {
+    grid-column: span 1; /* Color tool takes 1 column */
+  }
+}
+
+@media (max-width: 600px) {
+  /* Mobile breakpoint */
+  .tool-grid {
+    grid-template-columns: 1fr; /* Single column */
+    padding: 15px; /* Reduce padding */
+    gap: 15px; /* Reduce gap */
+  }
+
+  /* No need for span overrides as it's single column */
+  #text-manipulator-card,
+  #color-picker-card {
+    grid-column: span 1; /* Explicitly set to 1 */
+  }
+
+  body {
+    padding-top: 70px; /* Adjust for potentially smaller button */
+  }
+
+  .tool-card {
+    padding: 15px; /* Reduce card padding */
+  }
+
+  #text-manipulator-card h1 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+  }
+
+  .picker h2 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+  }
+
+  /* Adjust picker controls layout if needed */
+  .picker .color-controls {
+    gap: 15px;
+  }
+  .color-preview {
+    width: 60px;
+    height: 60px;
+  }
+  input[type="color"] {
+    width: 40px;
+    height: 40px;
+  }
+  .hex {
+    font-size: 0.9rem;
+  }
+}
