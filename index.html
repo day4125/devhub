@@ -18,7 +18,6 @@
     <title>DevHub</title>
   </head>
   <body>
-<<<<<<< HEAD
     <button
       id="themeToggle"
       class="theme-toggle-button"
@@ -54,26 +53,42 @@
       </div>
     </div>
 
-=======
-    <header></header>
-    <main>
-      <section class="tools">
-        <div class="input-area">
-          <input
-            type="text"
-            class="grocery-item-input"
-            placeholder="Lägg till ny"
-          />
-        </div>
-        <ul class="grocery-list"></ul>
-      </section>
-    </main>
-    <footer>
-      <button class="add-button">Lägg till</button>
-      <button class="clear-all-button">Rensa alla</button>
-      <p>&copy; Sinnesrubbad</p>
-    </footer>
->>>>>>> 6cb526b34b092df19a0131fae3f2f2f251a9c83e
+    <button
+      id="themeToggle"
+      class="theme-toggle-button"
+      aria-label="Växla tema"
+    >
+      ☀️
+    </button>
+
+    <div class="container">
+      <h1>Textmanipulator</h1>
+
+      <div class="input-area">
+        <textarea id="inputText" rows="8"></textarea>
+      </div>
+
+      <div class="button-area">
+        <button onclick="transformText('toUpperCase')">Versaler</button>
+
+        <button onclick="transformText('toLowerCase')">Gemener</button>
+
+        <button onclick="transformText('capitalize')">
+          Stor Begynnelsebokstav
+        </button>
+
+        <button onclick="transformText('removeExtraSpaces')">
+          Ta bort extra blanksteg
+        </button>
+
+        <button onclick="extractInformation('email')">
+          Extrahera e-postadresser
+        </button>
+
+        <button onclick="extractInformation('url')">Extrahera URL</button>
+      </div>
+    </div>
+
     <script src="script.js"></script>
   </body>
 </html>
