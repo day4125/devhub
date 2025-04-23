@@ -18,22 +18,40 @@
     <title>DevHub</title>
   </head>
   <body>
-    <header></header>
-    <main>
-      <section id="tools">
-        <div id="input-area">
-          <input type="text" id="grocery-item" placeholder="Lägg till vara" />
-          <button id="add-button">Lägg till</button>
-          <button id="clear-all-button">Rensa alla</button>
-        </div>
-        <ul id="grocery-list"></ul>
-      </section>
-    </main>
+    <button
+      id="themeToggle"
+      class="theme-toggle-button"
+      aria-label="Växla tema"
+    >
+      ☀️
+    </button>
 
-    <footer>
-      <h1>Inköpslista</h1>
-      <p>&copy; Sinnesrubbad</p>
-    </footer>
+    <div class="container">
+      <h1>Textmanipulator</h1>
+
+      <div class="input-area">
+        <textarea id="inputText" rows="8"></textarea>
+      </div>
+
+      <div class="button-area">
+        <button onclick="transformText('toUpperCase')">Versaler</button>
+
+        <button onclick="transformText('toLowerCase')">Gemener</button>
+
+        <button onclick="transformText('capitalize')">
+          Stor Begynnelsebokstav
+        </button>
+
+        <button onclick="transformText('removeExtraSpaces')">
+          Ta bort extra blanksteg
+        </button>
+
+        <button onclick="extractInformation('email')">
+          Extrahera e-postadresser
+        </button>
+        <button onclick="extractInformation('url')">Extrahera URL</button>
+      </div>
+    </div>
 
     <script src="script.js"></script>
   </body>
