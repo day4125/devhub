@@ -61,32 +61,16 @@
       ☀️
     </button>
 
-    <div class="container">
-      <h1>Textmanipulator</h1>
-
-      <div class="input-area">
-        <textarea id="inputText" rows="8"></textarea>
+    <div class="picker">
+      <div
+        class="color-preview"
+        id="colorPreview"
+        title="Klicka för att kopiera hex-kod"
+      >
+        <span class="color-label">Klicka för att kopiera hex-kod</span>
       </div>
-
-      <div class="button-area">
-        <button onclick="transformText('toUpperCase')">Versaler</button>
-
-        <button onclick="transformText('toLowerCase')">Gemener</button>
-
-        <button onclick="transformText('capitalize')">
-          Stor Begynnelsebokstav
-        </button>
-
-        <button onclick="transformText('removeExtraSpaces')">
-          Ta bort extra blanksteg
-        </button>
-
-        <button onclick="extractInformation('email')">
-          Extrahera e-postadresser
-        </button>
-
-        <button onclick="extractInformation('url')">Extrahera URL</button>
-      </div>
+      <input type="color" id="colorInput" value="#4CAF50" />
+      <div class="hex" id="hexOutput">#4CAF50</div>
     </div>
 
     <script src="script.js"></script>
