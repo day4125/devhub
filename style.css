@@ -3,10 +3,9 @@ body {
   font-family: "Roboto", sans-serif;
   margin: 20px;
   background-color: #f8f9fa;
-  /* Removed flexbox layout - now handled by grid */
   transition: background-color 0.3s ease, color 0.3s ease;
   color: #202124;
-  padding-top: 80px; /* Add padding to prevent content going under fixed button */
+  padding-top: 80px;
   padding-bottom: 20px;
 }
 
@@ -14,19 +13,9 @@ body {
   display: flex;
   margin: 0 auto;
   flex-direction: column;
-  align-items: center; /* Center the grid */
-  justify-content: center; /* Center the grid */
-  min-height: calc(100vh - 80px); /* Full height minus button space */
-  width: 90%;
-  max-width: 700px;
-}
-
-.main-bwrapper {
-  dosplay: flex;
-  background-color: #fff;
-  padding: 40px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 80px);
   width: 90%;
   max-width: 700px;
 }
@@ -81,25 +70,25 @@ body.dark-mode .theme-toggle-button {
 /* --- Grid Layout --- */
 .tool-grid {
   display: grid;
-  /* Create 3 equal columns */
   grid-template-columns: repeat(3, 1fr);
-  gap: 25px; /* Space between cards */
-  padding: 25px; /* Padding around the grid */
-  max-width: 1400px; /* Max width of the grid */
-  margin: 0 auto; /* Center the grid */
+  gap: 25px;
+  padding: 25px;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 /* --- Tool Card Styling --- */
 .tool-card {
   background-color: #fff;
-  border-radius: 12px; /* Softer corners */
-  padding: 25px; /* Padding inside cards */
+  border-radius: 12px;
+  padding: 25px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  /* Ensure cards can contain their content */
   overflow: hidden;
-  /* Base height behavior, adjust if needed */
-  height: fit-content; /* Allow card height to adjust to content */
+  height: fit-content;
+  /* Ensure consistent flex layout if needed for internal vertical alignment */
+  display: flex;
+  flex-direction: column;
 }
 
 body.dark-mode .tool-card {
@@ -107,24 +96,28 @@ body.dark-mode .tool-card {
   box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
 }
 
+/* Standardize heading style within tool cards */
+.tool-card h1 {
+  text-align: center;
+  margin-top: 0; /* Ensure no extra space at the top */
+  margin-bottom: 20px; /* Standardized space below heading */
+  color: #3c4043;
+  font-size: 1.8rem;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+body.dark-mode .tool-card h1 {
+  color: #e0e0e0;
+}
+
 /* --- Specific Card Spanning --- */
 #text-manipulator-card {
-  grid-column: span 3; /* Make this card take 2 columns */
+  grid-column: span 3;
 }
 
 #color-picker-card {
-  grid-column: span 1; /* Make this card take 1 column (default, but explicit) */
-}
-
-/* --- Text Manipulator Card Content --- */
-#text-manipulator-card h1 {
-  text-align: center;
-  margin-top: 0; /* Remove top margin */
-  margin-bottom: 25px;
-  color: #3c4043;
-  font-size: 1.8rem; /* Slightly smaller heading */
-  font-weight: 500;
-  transition: color 0.3s ease;
+  grid-column: span 1;
 }
 
 body.dark-mode #text-manipulator-card h1 {
@@ -132,19 +125,19 @@ body.dark-mode #text-manipulator-card h1 {
 }
 
 #text-manipulator-card .input-area {
-  margin-bottom: 20px; /* Space below textarea */
+  margin-bottom: 20px;
 }
 
 #text-manipulator-card textarea {
   width: 100%;
   padding: 12px;
   border: 1px solid #d8dee2;
-  border-radius: 6px; /* Consistent corners */
+  border-radius: 6px;
   box-sizing: border-box;
   font-size: 1rem;
   line-height: 1.5;
   color: #202124;
-  background-color: #f8f9fa; /* Slightly different background */
+  background-color: #f8f9fa;
   transition: border-color 0.3s ease, background-color 0.3s ease,
     color 0.3s ease;
 }
@@ -169,14 +162,14 @@ body.dark-mode #text-manipulator-card textarea:focus {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  justify-content: flex-start; /* Align buttons left */
+  justify-content: flex-start;
 }
 
 #text-manipulator-card button {
   padding: 10px 18px;
   border: none;
   border-radius: 6px;
-  background-color: #e8eaed; /* Slightly darker buttons */
+  background-color: #e8eaed;
   color: #3c4043;
   font-size: 0.95rem;
   cursor: pointer;
@@ -185,7 +178,7 @@ body.dark-mode #text-manipulator-card textarea:focus {
 }
 
 body.dark-mode #text-manipulator-card button {
-  background-color: #444; /* Dark mode button background */
+  background-color: #444;
   color: #e0e0e0;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
@@ -202,35 +195,42 @@ body.dark-mode #text-manipulator-card button:hover {
 
 #text-manipulator-card button:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.5); /* Focus ring */
+  box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.5);
 }
 
 /* --- Color Picker Card Content --- */
-/* The .picker class now styles the *content* area within the card */
 .picker {
-  /* Remove card styles - handled by .tool-card */
-  /* background-color: #f9f9f9; */
-  /* border: 1px solid #eee; */
-  /* border-radius: 8px; */
-  /* padding: 20px; */
-  /* width: auto; */
-  /* max-width: 700px; */
-  /* box-sizing: border-box; */
-
-  /* Keep/Add internal layout styles */
   display: flex;
-  flex-direction: column; /* Stack heading and controls */
-  align-items: center; /* Center items horizontally */
+  flex-direction: column;
+  align-items: center;
   gap: 20px;
   font-family: sans-serif;
-  height: 100%; /* Try to fill card height */
-  justify-content: center; /* Vertically center content */
+  height: 100%;
+  /* Removed justify-content: center; for standardization */
+  /* justify-content: center; */
+}
+
+/* Remove specific h1 style as it's now in .tool-card h1 */
+/*
+#color-picker-card h1 {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 10px; // This is now standardized
+  color: #3c4043;
+  font-size: 1.8rem;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+*/
+
+body.dark-mode #color-picker-card h1 {
+  color: #e0e0e0;
 }
 
 .picker h2 {
   margin-top: 0;
-  margin-bottom: 10px; /* Adjust space below heading */
-  font-size: 1.5rem; /* Consistent heading size */
+  margin-bottom: 10px;
+  font-size: 1.5rem;
   text-align: center;
   color: #3c4043;
   font-weight: 500;
@@ -242,16 +242,16 @@ body.dark-mode .picker h2 {
 
 .picker .color-controls {
   display: flex;
-  align-items: center; /* Align preview, input, hex */
-  justify-content: center; /* Center controls horizontally */
-  gap: 20px; /* Space between controls */
-  flex-wrap: wrap; /* Allow wrapping on narrow views if needed */
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
 .color-preview {
-  width: 80px; /* Slightly smaller */
+  width: 80px;
   height: 80px;
-  border-radius: 8px; /* Match card corners */
+  border-radius: 8px;
   border: 1px solid #ccc;
   cursor: pointer;
   position: relative;
@@ -269,7 +269,7 @@ body.dark-mode .color-preview {
 }
 
 .color-label {
-  font-size: 0.8rem; /* Slightly smaller */
+  font-size: 0.8rem;
   color: white;
   text-align: center;
   pointer-events: none;
@@ -289,10 +289,10 @@ body.dark-mode .color-preview {
   color: #333;
   transition: color 0.3s ease;
   flex-shrink: 0;
-  background-color: #f0f0f0; /* Add background for clarity */
+  background-color: #f0f0f0;
   padding: 5px 10px;
   border-radius: 4px;
-  min-width: 7ch; /* Ensure space for #RRGGBB */
+  min-width: 7ch;
   text-align: center;
 }
 
@@ -304,14 +304,15 @@ body.dark-mode .hex {
 input[type="color"] {
   flex-shrink: 0;
   cursor: pointer;
-  width: 45px; /* Adjust size */
+  width: 45px;
   height: 45px;
   border: none;
   padding: 0;
   background: none;
-  border-radius: 6px;
+  border-radius: 50%;
   overflow: hidden;
 }
+
 input[type="color"]::-webkit-color-swatch-wrapper {
   padding: 0;
 }
@@ -326,43 +327,42 @@ input[type="color"]::-moz-color-swatch {
 
 /* --- Responsive Design --- */
 @media (max-width: 992px) {
-  /* Tablet breakpoint */
   .tool-grid {
-    grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    grid-template-columns: repeat(2, 1fr);
   }
   #text-manipulator-card {
-    grid-column: span 1; /* Text tool takes 1 column */
+    grid-column: span 1;
   }
   #color-picker-card {
-    grid-column: span 1; /* Color tool takes 1 column */
+    grid-column: span 1;
   }
 }
 
 @media (max-width: 600px) {
-  /* Mobile breakpoint */
   .tool-grid {
-    grid-template-columns: 1fr; /* Single column */
-    padding: 15px; /* Reduce padding */
-    gap: 15px; /* Reduce gap */
+    grid-template-columns: 1fr;
+    padding: 15px;
+    gap: 15px;
   }
 
-  /* No need for span overrides as it's single column */
   #text-manipulator-card,
   #color-picker-card {
-    grid-column: span 1; /* Explicitly set to 1 */
+    grid-column: span 1;
   }
 
   body {
-    padding-top: 70px; /* Adjust for potentially smaller button */
+    padding-top: 70px;
   }
 
   .tool-card {
-    padding: 15px; /* Reduce card padding */
+    padding: 15px;
   }
 
-  #text-manipulator-card h1 {
+  /* Standardize heading size on mobile */
+
+  .tool-card h1 {
     font-size: 1.5rem;
-    margin-bottom: 15px;
+    margin-bottom: 15px; /* Slightly less space on mobile */
   }
 
   .picker h2 {
@@ -370,7 +370,6 @@ input[type="color"]::-moz-color-swatch {
     margin-bottom: 15px;
   }
 
-  /* Adjust picker controls layout if needed */
   .picker .color-controls {
     gap: 15px;
   }
