@@ -11,14 +11,12 @@ function transformText(operation) {
     case "toLowerCase":
       text = text.toLowerCase();
       break;
-    case "capitalize":
-      // Improved capitalization to handle multiple spaces and leading/trailing spaces
-      text = text.toLowerCase().replace(/(\b[a-z](?!\s))/g, function (x) {
-        return x.toUpperCase();
-      });
-      break;
     case "removeExtraSpaces":
-      text = text.replace(/\s+/g, " ").trim();
+      text = text
+        .replace(/&shy;/gi, "") // Ta bort &shy; (case-insensitive)
+        .replace(/[\u00ad]/g, "") // Ta bort faktiskt soft hyphen-tecken
+        .replace(/\s+/g, " ") // Ersätt flera whitespace med ett
+        .trim(); // Trimma början/slut
       break;
   }
 
@@ -53,7 +51,10 @@ function extractInformation(type) {
   }
 }
 
-// Duplicate extractInformation function removed
+// --- Text Manipulator Copy/Paste Functionality ---
+const textManipulatorTextArea = document.getElementById("inputText"); // Use the correct ID
+const copyButton = document.getElementById("tmCopyButton"); // Use the new button ID
+const pasteButton = document.getElementById("tmPasteButton"); // Use the new button ID
 
 // --- Darkmode-funktionalitet ---
 
@@ -149,6 +150,13 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   }
 
+  document.querySelector(".collapsible").addEventListener("click", function () {
+    const content = this.nextElementSibling;
+    const isVisible = content.style.display === "block";
+    content.style.display = isVisible ? "none" : "block";
+    this.innerHTML = isVisible ? "Visa fler verktyg ▸" : "Dölj ▾";
+  });
+
   // Initial setup
   if (colorInput && colorPreview && hexOutput && colorLabel) {
     updateColor(); // Set initial color on load
@@ -160,5 +168,3 @@ document.addEventListener("DOMContentLoaded", () => {
     console.error("Color picker elements not found!");
   }
 }); // End DOMContentLoaded listener
-
-// Duplicate transformText function removed

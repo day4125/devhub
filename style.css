@@ -21,7 +21,7 @@ body {
 }
 
 body.dark-mode {
-  background-color: #121212;
+  background-color: #323232;
   color: #e0e0e0;
 }
 
@@ -116,6 +116,20 @@ body.dark-mode .tool-card h1 {
   grid-column: span 3;
 }
 
+/* --- Text Manipulator Copy/Paste Button Styles --- */
+
+/* Make the existing input-area the positioning context */
+#text-manipulator-card .input-area {
+  position: relative; /* Crucial for positioning the buttons */
+  /* Existing margin-bottom: 20px; is fine */
+}
+
+/* Add padding to the top of the textarea to prevent text overlap */
+#text-manipulator-card textarea#inputText {
+  padding-top: 40px; /* Adjust value as needed */
+  /* Inherits other textarea styles */
+}
+
 #color-picker-card {
   grid-column: span 1;
   padding-bottom: 10px;
@@ -141,6 +155,7 @@ body.dark-mode #text-manipulator-card h1 {
   background-color: #f8f9fa;
   transition: border-color 0.3s ease, background-color 0.3s ease,
     color 0.3s ease;
+  resize: none;
 }
 
 body.dark-mode #text-manipulator-card textarea {
@@ -159,6 +174,28 @@ body.dark-mode #text-manipulator-card textarea:focus {
   box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.5);
 }
 
+.collapsible {
+  background-color: rgb(237, 237, 237) !important;
+  text-align: left;
+  color: #000000 !important;
+}
+
+body.dark-mode .collapsible {
+  background-color: #444 !important;
+  color: #e0e0e0 !important;
+}
+
+.content {
+  display: none;
+  margin-top: 0.5em;
+  border-left: 1px solid rgb(224, 224, 224);
+  padding-left: 10px;
+}
+
+.content button {
+  margin: 5px 0;
+}
+
 #text-manipulator-card .button-area {
   display: flex;
   flex-wrap: wrap;
@@ -167,11 +204,12 @@ body.dark-mode #text-manipulator-card textarea:focus {
 }
 
 #text-manipulator-card button {
-  padding: 10px 18px;
+  padding: 16px 18px;
   border: none;
   border-radius: 6px;
-  background-color: #e8eaed;
-  color: #3c4043;
+  background-color: #485460;
+  width: 100%;
+  color: #ffffff;
   font-size: 0.95rem;
   cursor: pointer;
   transition: background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
@@ -179,7 +217,7 @@ body.dark-mode #text-manipulator-card textarea:focus {
 }
 
 body.dark-mode #text-manipulator-card button {
-  background-color: #444;
+  background-color: #485460;
   color: #e0e0e0;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
@@ -190,7 +228,7 @@ body.dark-mode #text-manipulator-card button {
 }
 
 body.dark-mode #text-manipulator-card button:hover {
-  background-color: #555;
+  background-color: #747474;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
@@ -334,7 +372,7 @@ input[type="color"]::-moz-color-swatch {
     grid-template-columns: repeat(2, 1fr);
   }
   #text-manipulator-card {
-    grid-column: span 1;
+    grid-column: span 2;
   }
   #color-picker-card {
     grid-column: span 1;
@@ -343,7 +381,7 @@ input[type="color"]::-moz-color-swatch {
 
 @media (max-width: 600px) {
   .tool-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 2fr;
     padding: 15px;
     gap: 15px;
   }
