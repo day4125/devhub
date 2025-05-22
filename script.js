@@ -51,11 +51,6 @@ function extractInformation(type) {
   }
 }
 
-// --- Text Manipulator Copy/Paste Functionality ---
-const textManipulatorTextArea = document.getElementById("inputText"); // Use the correct ID
-const copyButton = document.getElementById("tmCopyButton"); // Use the new button ID
-const pasteButton = document.getElementById("tmPasteButton"); // Use the new button ID
-
 // --- Darkmode-funktionalitet ---
 
 // Ensure DOM is loaded before selecting elements
@@ -150,11 +145,14 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   }
 
-  document.querySelector(".collapsible").addEventListener("click", function () {
-    const content = this.nextElementSibling;
-    const isVisible = content.style.display === "block";
-    content.style.display = isVisible ? "none" : "block";
-    this.innerHTML = isVisible ? "Visa fler verktyg ▸" : "Dölj ▾";
+  document.querySelectorAll(".collapsible").forEach((btn) => {
+    const originalText = btn.textContent;
+    btn.addEventListener("click", function () {
+      const content = this.nextElementSibling;
+      const isVisible = content.style.display === "block";
+      content.style.display = isVisible ? "none" : "block";
+      this.innerHTML = isVisible ? originalText : "Dölj ▾";
+    });
   });
 
   // Initial setup
