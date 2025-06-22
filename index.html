@@ -49,6 +49,31 @@
           </div>
         </div>
 
+        <div id="diff-checker-card" class="tool-card">
+          <h1>Diff Checker</h1>
+
+          <div class="input-section">
+            <div class="textarea-group">
+              <label for="originalText">Originaltext:</label>
+              <textarea id="originalText"></textarea>
+            </div>
+            <div class="textarea-group">
+              <label for="newText">Ny text:</label>
+              <textarea id="newText"></textarea>
+            </div>
+          </div>
+
+          <button id="compareBtn">Jämför</button>
+
+          <div class="diff-output">
+            <h2>Skillnader:</h2>
+            <div id="diffResult" class="diff-result-content"></div>
+            <div class="legend">
+              <span class="added-legend">Tillagt</span>
+              <span class="removed-legend">Borttaget</span>
+            </div>
+          </div>
+        </div>
         <div id="color-picker-card" class="tool-card picker">
           <h1>Färgväljare</h1>
           <div class="color-controls">

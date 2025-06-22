@@ -51,10 +51,14 @@ function extractInformation(type) {
   }
 }
 
-// --- Darkmode-funktionalitet ---
+// --- Text Manipulator Copy/Paste Functionality ---
+// const textManipulatorTextArea = document.getElementById("inputText"); // Use the correct ID
+// const copyButton = document.getElementById("tmCopyButton"); // Use the new button ID
+// const pasteButton = document.getElementById("tmPasteButton"); // Use the new button ID
 
-// Ensure DOM is loaded before selecting elements
+// --- All DOMContentLoaded related scripts ---
 document.addEventListener("DOMContentLoaded", () => {
+  // --- Darkmode-funktionalitet ---
   const themeToggle = document.getElementById("themeToggle");
   const body = document.body;
 
@@ -145,17 +149,17 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   }
 
-  document.querySelectorAll(".collapsible").forEach((btn) => {
-    const originalText = btn.textContent;
-    btn.addEventListener("click", function () {
+  const collapsibleButton = document.querySelector(".collapsible");
+  if (collapsibleButton) {
+    collapsibleButton.addEventListener("click", function () {
       const content = this.nextElementSibling;
       const isVisible = content.style.display === "block";
       content.style.display = isVisible ? "none" : "block";
-      this.innerHTML = isVisible ? originalText : "Dölj ▾";
+      this.innerHTML = isVisible ? "Fler verktyg ▸" : "Dölj ▾"; // Changed text to match original "Fler verktyg"
     });
-  });
+  }
 
-  // Initial setup
+  // Initial setup for color picker
   if (colorInput && colorPreview && hexOutput && colorLabel) {
     updateColor(); // Set initial color on load
 
@@ -164,5 +168,122 @@ document.addEventListener("DOMContentLoaded", () => {
     colorPreview.addEventListener("click", copyHexToClipboard);
   } else {
     console.error("Color picker elements not found!");
+  }
+
+  // --- Diff Checker Functionality (integrated from script1.js) ---
+  // Get references to HTML elements
+  const originalTextarea = document.getElementById("originalText");
+  const newTextarea = document.getElementById("newText");
+  const compareButton = document.getElementById("compareBtn");
+  const diffResultDiv = document.getElementById("diffResult");
+
+  // Attach event listener to the button
+  if (compareButton) {
+    // Added a check to ensure button exists before adding listener
+    compareButton.addEventListener("click", compareTexts);
+  } else {
+    console.error("Compare button not found! Check your HTML ID.");
+  }
+
+  function compareTexts() {
+    const originalText = originalTextarea.value;
+    const newText = newTextarea.value;
+
+    // Basic word-by-word tokenizer for comparison
+    // It splits words and keeps spaces/punctuation as separate tokens for slightly better granularity
+    const words1 = originalText
+      .split(/(\b\w+\b|\s+|[^\s\w]+)/)
+      .filter((word) => word.trim().length > 0 || /\s+/.test(word));
+    const words2 = newText
+      .split(/(\b\w+\b|\s+|[^\s\w]+)/)
+      .filter((word) => word.trim().length > 0 || /\s+/.test(word));
+
+    // The core diffing logic
+    const diffWords = (arr1, arr2) => {
+      const result = [];
+      let i = 0; // pointer for arr1
+      let j = 0; // pointer for arr2
+
+      while (i < arr1.length || j < arr2.length) {
+        const word1 = arr1[i];
+        const word2 = arr2[j];
+
+        if (word1 === word2 && word1 !== undefined) {
+          // Words are identical and exist
+          result.push(`<span>${word1}</span>`);
+          i++;
+          j++;
+        } else {
+          // Words are different or one array is exhausted
+          let foundInNew = -1;
+          // Check if word1 (from original) exists later in new text
+          for (let k = j + 1; k < arr2.length; k++) {
+            if (arr2[k] === word1) {
+              foundInNew = k;
+              break;
+            }
+          }
+
+          let foundInOriginal = -1;
+          // Check if word2 (from new) exists later in original text
+          for (let k = i + 1; k < arr1.length; k++) {
+            if (arr1[k] === word2) {
+              foundInOriginal = k;
+              break;
+            }
+          }
+
+          if (
+            foundInNew !== -1 &&
+            (foundInOriginal === -1 || foundInNew - j <= foundInOriginal - i)
+          ) {
+            // Word1 found later in New, and this path is shorter or original has no match for word2
+            // Mark words from New up to the match as added
+            for (let l = j; l < foundInNew; l++) {
+              result.push(`<span class="added">${arr2[l]}</span>`);
+            }
+            j = foundInNew; // Move new pointer to the matched word
+          } else if (foundInOriginal !== -1) {
+            // Word2 found later in Original
+            // Mark words from Original up to the match as removed
+            for (let l = i; l < foundInOriginal; l++) {
+              result.push(`<span class="removed">${arr1[l]}</span>`);
+            }
+            i = foundInOriginal; // Move original pointer to the matched word
+          } else {
+            // No clear match ahead, or both found but no clear shorter path
+            // Assume current word1 is removed and current word2 is added
+            if (word1 !== undefined) {
+              result.push(`<span class="removed">${word1}</span>`);
+              i++;
+            }
+            if (word2 !== undefined) {
+              result.push(`<span class="added">${word2}</span>`);
+              j++;
+            }
+          }
+        }
+      }
+      // Join with a non-breaking space for better word separation in the output, but keep original spaces too.
+      // A simple join might collapse multiple spaces. The tokenizer above tries to handle this.
+      return result.join(""); // Join without extra space, as tokens include their own spaces
+    };
+
+    if (originalText.length === 0 && newText.length === 0) {
+      diffResultDiv.innerHTML = "Enter text in one or both boxes to compare.";
+    } else {
+      const diffHtml = diffWords(words1, words2);
+      if (
+        diffHtml.replace(/<\/?span[^>]*>/g, "").trim() ===
+          originalText.replace(/\s+/g, " ").trim() &&
+        diffHtml.replace(/<\/?span[^>]*>/g, "").trim() ===
+          newText.replace(/\s+/g, " ").trim() &&
+        originalText.trim() === newText.trim()
+      ) {
+        diffResultDiv.innerHTML = "The texts are identical!";
+      } else {
+        diffResultDiv.innerHTML = diffHtml;
+      }
+    }
   }
 }); // End DOMContentLoaded listener
