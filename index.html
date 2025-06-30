@@ -4,99 +4,163 @@
     <meta charset="UTF-8" />
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta
       name="apple-mobile-web-app-status-bar-style"
-      content="black-translucent" />
+      content="black-translucent"
+    />
     <meta name="apple-mobile-web-app-title" content="DevHub" />
     <link rel="apple-touch-icon" href="/images/icon.png" />
     <link rel="stylesheet" href="style.css" />
     <title>DevHub - Tools</title>
   </head>
   <body>
-    <button
-      id="themeToggle"
-      class="theme-toggle-button"
-      aria-label="Växla tema">
-      ☀️
-    </button>
-    <main class="main-wrapper">
-      <div class="tool-grid">
-        <div id="text-manipulator-card" class="tool-card">
-          <h1>Textmanipulator</h1>
-          <div class="input-area">
-            <textarea
-              id="inputText"
-              placeholder="Skriv eller klistra in text här..."
-              rows="8"></textarea>
-          </div>
+    <div class="app-container">
+      <!-- Left Sidebar with Tab Navigation -->
+      <nav class="sidebar">
+        <div class="sidebar-header">
+          <button
+            id="themeToggle"
+            class="theme-toggle-button"
+            aria-label="Toggle theme"
+          >
+            ☀️
+          </button>
+        </div>
+        <ul class="tab-nav">
+          <li class="tab-item active" data-tab="text-manipulator">
+            <span class="tab-icon">📝</span>
+          </li>
+          <li class="tab-item" data-tab="diff-checker">
+            <span class="tab-icon">🔍</span>
+          </li>
+          <li class="tab-item" data-tab="color-picker">
+            <span class="tab-icon">🎨</span>
+          </li>
+        </ul>
+      </nav>
 
-          <div class="button-area">
-            <button onclick="transformText('removeExtraSpaces')">
-              Ta bort onödiga radbryt, extra mellanrum och vanlig skräpkod
-            </button>
-            <button class="collapsible">Fler verktyg ▸</button>
-            <div class="content">
-              <button onclick="transformText('toUpperCase')">VERSALER</button>
-              <button onclick="transformText('toLowerCase')">gemener</button>
-              <button onclick="extractInformation('email')">
-                Extrahera e-postadresser
+      <!-- Main Content Area -->
+      <main class="main-content">
+        <!-- Text Manipulator Tab -->
+        <div id="text-manipulator" class="tab-content active">
+          <div class="tool-card">
+            <h1>Text Manipulator</h1>
+            <div class="input-area">
+              <textarea
+                id="inputText"
+                placeholder="Skriv eller klistra in text här..."
+                rows="8"
+              ></textarea>
+            </div>
+
+            <div class="button-area">
+              <button onclick="transformText('removeExtraSpaces')">
+                Ta bort onödiga radbryt, extra mellanrum och vanlig skräpkod
               </button>
-              <button onclick="extractInformation('url')">Extrahera URL</button>
+              <button class="collapsible">Fler verktyg ▸</button>
+              <div class="content">
+                <button onclick="transformText('toUpperCase')">VERSALER</button>
+                <button onclick="transformText('toLowerCase')">gemener</button>
+                <button onclick="extractInformation('email')">
+                  Extrahera e-postadresser
+                </button>
+                <button onclick="extractInformation('url')">
+                  Extrahera URL
+                </button>
+              </div>
             </div>
           </div>
         </div>
 
-        <div id="diff-checker-card" class="tool-card">
-          <h1>Diff Checker</h1>
+        <!-- Diff Checker Tab -->
+        <div id="diff-checker" class="tab-content">
+          <div class="tool-card">
+            <h1>Diff Checker</h1>
 
-          <div class="input-section">
-            <div class="textarea-group">
-              <label for="originalText">Originaltext:</label>
-              <textarea id="originalText"></textarea>
+            <div class="input-section">
+              <div class="textarea-group">
+                <label for="originalText">Text 1:</label>
+                <textarea id="originalText"></textarea>
+              </div>
+              <div class="textarea-group">
+                <label for="newText">Text 2:</label>
+                <textarea id="newText"></textarea>
+              </div>
             </div>
-            <div class="textarea-group">
-              <label for="newText">Ny text:</label>
-              <textarea id="newText"></textarea>
+
+            <button id="compareBtn">Jämför</button>
+
+            <div class="diff-output">
+              <h2>Skillnader:</h2>
+              <div id="diffResult" class="diff-result-content"></div>
+              <div class="legend">
+                <span class="added-legend">Tillagt</span>
+                <span class="removed-legend">Borttaget</span>
+              </div>
             </div>
           </div>
+        </div>
 
-          <button id="compareBtn">Jämför</button>
+        <!-- Color Picker Tab -->
+        <div id="color-picker" class="tab-content">
+          <div class="tool-card picker">
+            <h1>Färgväljare</h1>
+            <div class="color-controls">
+              <div
+                class="color-preview"
+                id="colorPreview"
+                title="Klicka för att kopiera hex-kod"
+              >
+                <span class="color-label">Klicka för att kopiera hex-kod</span>
+              </div>
 
-          <div class="diff-output">
-            <h2>Skillnader:</h2>
-            <div id="diffResult" class="diff-result-content"></div>
-            <div class="legend">
-              <span class="added-legend">Tillagt</span>
-              <span class="removed-legend">Borttaget</span>
+              <div class="color-picker-wrapper">
+                <input
+                  type="color"
+                  id="colorInput"
+                  value="#4CAF50"
+                  aria-label="Select color"
+                />
+              </div>
+
+              <div class="hex" id="hexOutput">#4CAF50</div>
+            </div>
+
+            <!-- Palette Generator Section -->
+            <div class="palette-section">
+              <!-- Shades Section -->
+              <div class="palette-group">
+                <h3>Nyanser</h3>
+                <div class="palette-grid" id="shadesGrid"></div>
+              </div>
+
+              <!-- Complementary Colors Section -->
+              <div class="palette-group">
+                <h3>Monokromatiska färger</h3>
+                <div class="palette-grid" id="complementaryGrid"></div>
+              </div>
+
+              <!-- Triadic Colors Section -->
+              <div class="palette-group">
+                <h3>Triadiska färger</h3>
+                <div class="palette-grid" id="triadicGrid"></div>
+              </div>
+
+              <!-- Analogous Colors Section -->
+              <div class="palette-group">
+                <h3>Analoga färger</h3>
+                <div class="palette-grid" id="analogousGrid"></div>
+              </div>
             </div>
           </div>
         </div>
-        <div id="color-picker-card" class="tool-card picker">
-          <h1>Färgväljare</h1>
-          <div class="color-controls">
-            <div
-              class="color-preview"
-              id="colorPreview"
-              title="Klicka för att kopiera hex-kod">
-              <span class="color-label">Klicka för att kopiera hex-kod</span>
-            </div>
+      </main>
+    </div>
 
-            <div class="color-picker-wrapper">
-              <input
-                type="color"
-                id="colorInput"
-                value="#4CAF50"
-                aria-label="Välj färg" />
-            </div>
-
-            <div class="hex" id="hexOutput">#4CAF50</div>
-          </div>
-        </div>
-      </div>
-    </main>
     <script src="script.js"></script>
   </body>
 </html>
