@@ -18,6 +18,14 @@ function transformText(operation) {
         .replace(/\s+/g, " ") // Replace multiple whitespace with single space
         .trim(); // Trim beginning/end
       break;
+    case "smartQuotes":
+      text = text
+        // 1. Replace opening quotes:
+        // Matches a quote at the start of string OR preceded by space/brackets
+        .replace(/(^|[\s(\[{])"/g, "$1“")
+        // 2. Replace all remaining quotes with closing curly quotes
+        .replace(/"/g, "”");
+      break;
   }
 
   inputTextElement.value = text;

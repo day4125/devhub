@@ -4,14 +4,12 @@
     <meta charset="UTF-8" />
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
-    />
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta
       name="apple-mobile-web-app-status-bar-style"
-      content="black-translucent"
-    />
+      content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="DevHub" />
     <link rel="apple-touch-icon" href="/images/icon.png" />
     <link rel="stylesheet" href="style.css" />
@@ -25,8 +23,7 @@
           <button
             id="themeToggle"
             class="theme-toggle-button"
-            aria-label="Toggle theme"
-          >
+            aria-label="Toggle theme">
             ☀️
           </button>
         </div>
@@ -53,8 +50,7 @@
               <textarea
                 id="inputText"
                 placeholder="Skriv eller klistra in text här..."
-                rows="8"
-              ></textarea>
+                rows="8"></textarea>
             </div>
 
             <div class="button-area">
@@ -63,6 +59,9 @@
               </button>
               <button class="collapsible">Fler verktyg ▸</button>
               <div class="content">
+                <button onclick="transformText('smartQuotes')">
+                  Citattecken (" -> ”)
+                </button>
                 <button onclick="transformText('toUpperCase')">VERSALER</button>
                 <button onclick="transformText('toLowerCase')">gemener</button>
                 <button onclick="extractInformation('email')">
@@ -113,8 +112,7 @@
               <div
                 class="color-preview"
                 id="colorPreview"
-                title="Klicka för att kopiera hex-kod"
-              >
+                title="Klicka för att kopiera hex-kod">
                 <span class="color-label">Klicka för att kopiera hex-kod</span>
               </div>
 
@@ -123,8 +121,7 @@
                   type="color"
                   id="colorInput"
                   value="#4CAF50"
-                  aria-label="Select color"
-                />
+                  aria-label="Select color" />
               </div>
 
               <div class="hex" id="hexOutput">#4CAF50</div>
