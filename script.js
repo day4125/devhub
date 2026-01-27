@@ -18,6 +18,9 @@ function transformText(operation) {
         .replace(/\s+/g, " ") // Replace multiple whitespace with single space
         .trim(); // Trim beginning/end
       break;
+    case "smartQuotes":
+      text = text.replace(/"/g, "”");
+      break;
   }
 
   inputTextElement.value = text;
