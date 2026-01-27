@@ -121,13 +121,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // --- Color Conversion Utilities ---
   function hexToRgb(hex) {
+    // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+    const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+    hex = hex.replace(shorthandRegex, function (m, r, g, b) {
+      return r + r + g + g + b + b;
+    });
+
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     return result
       ? {
-          r: parseInt(result[1], 16),
-          g: parseInt(result[2], 16),
-          b: parseInt(result[3], 16),
-        }
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16),
+      }
       : null;
   }
 
@@ -201,173 +207,135 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   }
 
-  // --- Palette Generation Functions ---
-  function generateShades(hexColor, count = 8) {
-    const rgb = hexToRgb(hexColor);
-    if (!rgb) return [];
+  // --- Color Converter Logic ---
+  function setupColorConverter() {
+    const inputFormat = document.getElementById("inputFormat");
+    const outputFormat = document.getElementById("outputFormat");
+    const inputContainer = document.getElementById("inputContainer");
+    const converterOutput = document.getElementById("converterOutput");
+    const copyBtn = document.getElementById("copyConverterOutput");
 
-    const shades = [];
-    // Limit lightness range from 15% to 85% to avoid pure black and white
-    const minLightness = 15;
-    const maxLightness = 85;
-    const step = (maxLightness - minLightness) / (count - 1);
+    if (!inputFormat || !outputFormat || !inputContainer) return;
 
-    for (let i = 0; i < count; i++) {
-      const lightness = minLightness + i * step;
-      const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
-      const newRgb = hslToRgb(hsl.h, hsl.s, lightness);
-      shades.push(rgbToHex(newRgb.r, newRgb.g, newRgb.b));
+    // Helper to clear and create inputs
+    function renderInputs() {
+      const format = inputFormat.value;
+      inputContainer.innerHTML = "";
+
+      const input = document.createElement("input");
+      input.type = "text";
+      input.id = "colorTextInput";
+      input.addEventListener("input", handleConversion);
+      inputContainer.appendChild(input);
+
+      if (format === "hex") {
+        input.placeholder = "#000000";
+        input.maxLength = 7;
+      } else if (format === "rgb") {
+        input.placeholder = "rgb(255, 0, 0)";
+      } else if (format === "hsl") {
+        input.placeholder = "hsl(0, 100%, 50%)";
+      }
+      // Don't trigger conversion immediately on switch to keep input empty/clean or preserve value?
+      // Since we clear input, we can't really convert. Maybe clear output too.
+      converterOutput.value = "";
     }
 
-    return shades;
-  }
+    function handleConversion() {
+      const iFormat = inputFormat.value;
+      const oFormat = outputFormat.value;
+      const inputValue = document.getElementById("colorTextInput").value.trim();
 
-  function generateComplementary(hexColor) {
-    const rgb = hexToRgb(hexColor);
-    if (!rgb) return [];
+      if (!inputValue) {
+        converterOutput.value = "";
+        return;
+      }
 
-    const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
-    const colors = [];
+      let r, g, b;
 
-    // Monochromatic: different shades and tints of the same hue
-    // Create variations by changing saturation and lightness while keeping the same hue
-    const variations = [
-      { s: hsl.s, l: Math.max(10, hsl.l - 30) }, // Darker shade
-      { s: hsl.s, l: Math.max(15, hsl.l - 15) }, // Dark shade
-      { s: Math.min(100, hsl.s + 20), l: hsl.l }, // More saturated
-      { s: Math.max(20, hsl.s - 20), l: hsl.l }, // Less saturated
-      { s: hsl.s, l: Math.min(90, hsl.l + 15) }, // Light tint
-      { s: hsl.s, l: Math.min(85, hsl.l + 30) }, // Lighter tint
-    ];
+      // Parse Input
+      if (iFormat === "hex") {
+        // Allow partial input, check validity
+        if (!/^#?[0-9A-F]{3,6}$/i.test(inputValue)) {
+          converterOutput.value = "Ogiltig HEX";
+          return;
+        }
+        const rgb = hexToRgb(inputValue);
+        if (!rgb) {
+          converterOutput.value = "Ogiltig HEX";
+          return;
+        }
+        r = rgb.r;
+        g = rgb.g;
+        b = rgb.b;
+      } else if (iFormat === "rgb") {
+        // Match numbers, ignore other chars slightly but respect order
+        const matches = inputValue.match(/-?\d+(\.\d+)?/g);
+        if (!matches || matches.length < 3) {
+          // Don't show error immediately while typing? Or maybe subtle one.
+          // For now, if incomplete, maybe just return
+          return;
+        }
+        r = parseFloat(matches[0]);
+        g = parseFloat(matches[1]);
+        b = parseFloat(matches[2]);
 
-    variations.forEach((variation) => {
-      const newRgb = hslToRgb(hsl.h, variation.s, variation.l);
-      colors.push(rgbToHex(newRgb.r, newRgb.g, newRgb.b));
-    });
+        // Clamp
+        r = Math.max(0, Math.min(255, r));
+        g = Math.max(0, Math.min(255, g));
+        b = Math.max(0, Math.min(255, b));
 
-    return colors;
-  }
+      } else if (iFormat === "hsl") {
+        const matches = inputValue.match(/-?\d+(\.\d+)?/g);
+        if (!matches || matches.length < 3) {
+          return;
+        }
+        let h = parseFloat(matches[0]);
+        let s = parseFloat(matches[1]);
+        let l = parseFloat(matches[2]);
 
-  function generateTriadic(hexColor) {
-    const rgb = hexToRgb(hexColor);
-    if (!rgb) return [];
+        // Clamp
+        h = Math.max(0, Math.min(360, h));
+        s = Math.max(0, Math.min(100, s));
+        l = Math.max(0, Math.min(100, l));
 
-    const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
-    const colors = [];
+        const rgb = hslToRgb(h, s, l);
+        r = rgb.r;
+        g = rgb.g;
+        b = rgb.b;
+      }
 
-    // Generate three colors 120 degrees apart
-    for (let i = 0; i < 3; i++) {
-      const hue = (hsl.h + i * 120) % 360;
-      const newRgb = hslToRgb(hue, hsl.s, hsl.l);
-      colors.push(rgbToHex(newRgb.r, newRgb.g, newRgb.b));
+      // Convert RGB to Output Format
+      let result = "";
+      if (oFormat === "hex") {
+        result = rgbToHex(r, g, b).toUpperCase();
+      } else if (oFormat === "rgb") {
+        result = `rgb(${r}, ${g}, ${b})`;
+      } else if (oFormat === "hsl") {
+        const hsl = rgbToHsl(r, g, b);
+        result = `hsl(${Math.round(hsl.h)}, ${Math.round(hsl.s)}%, ${Math.round(hsl.l)}%)`;
+      }
+
+      converterOutput.value = result;
     }
 
-    return colors;
-  }
-
-  function generateAnalogous(hexColor, count = 4) {
-    const rgb = hexToRgb(hexColor);
-    if (!rgb) return [];
-
-    const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
-    const colors = [];
-    const step = 30; // 30 degrees between each color
-
-    const startHue = hsl.h - Math.floor(count / 2) * step;
-
-    for (let i = 0; i < count; i++) {
-      const hue = (startHue + i * step + 360) % 360;
-      const newRgb = hslToRgb(hue, hsl.s, hsl.l);
-      colors.push(rgbToHex(newRgb.r, newRgb.g, newRgb.b));
-    }
-
-    return colors;
-  }
-
-  // --- Palette Display Functions ---
-  function createPaletteSwatch(color) {
-    const swatch = document.createElement("div");
-    swatch.className = "palette-swatch";
-    swatch.style.backgroundColor = color;
-    swatch.title = `Klicka för att kopiera ${color}`;
-
-    const hexCode = document.createElement("div");
-    hexCode.className = "hex-code";
-    hexCode.textContent = color.toUpperCase();
-
-    const copyFeedback = document.createElement("div");
-    copyFeedback.className = "copy-feedback";
-    copyFeedback.textContent = "Kopierad!";
-
-    swatch.appendChild(hexCode);
-    swatch.appendChild(copyFeedback);
-
-    // Add click event for copying
-    swatch.addEventListener("click", () => {
-      navigator.clipboard
-        .writeText(color.toUpperCase())
-        .then(() => {
-          swatch.classList.add("show-feedback");
-          setTimeout(() => {
-            swatch.classList.remove("show-feedback");
-          }, 1500);
-        })
-        .catch((err) => {
-          console.error("Could not copy color:", err);
-          copyFeedback.textContent = "Fel!";
-          swatch.classList.add("show-feedback");
-          setTimeout(() => {
-            swatch.classList.remove("show-feedback");
-            copyFeedback.textContent = "Kopierad!";
-          }, 1500);
+    // copy functionality
+    copyBtn.addEventListener("click", () => {
+      if (converterOutput.value && converterOutput.value !== "Ogiltig HEX") {
+        navigator.clipboard.writeText(converterOutput.value).then(() => {
+          const original = copyBtn.textContent;
+          copyBtn.textContent = "✅";
+          setTimeout(() => copyBtn.textContent = original, 1500);
         });
+      }
     });
 
-    return swatch;
-  }
+    // Listeners
+    inputFormat.addEventListener("change", renderInputs);
+    outputFormat.addEventListener("change", handleConversion);
 
-  function updatePalette(hexColor) {
-    // Generate palettes
-    const shades = generateShades(hexColor);
-    const complementary = generateComplementary(hexColor);
-    const triadic = generateTriadic(hexColor);
-    const analogous = generateAnalogous(hexColor);
-
-    // Update shades grid
-    const shadesGrid = document.getElementById("shadesGrid");
-    if (shadesGrid) {
-      shadesGrid.innerHTML = "";
-      shades.forEach((color) => {
-        shadesGrid.appendChild(createPaletteSwatch(color));
-      });
-    }
-
-    // Update complementary grid
-    const complementaryGrid = document.getElementById("complementaryGrid");
-    if (complementaryGrid) {
-      complementaryGrid.innerHTML = "";
-      complementary.forEach((color) => {
-        complementaryGrid.appendChild(createPaletteSwatch(color));
-      });
-    }
-
-    // Update triadic grid
-    const triadicGrid = document.getElementById("triadicGrid");
-    if (triadicGrid) {
-      triadicGrid.innerHTML = "";
-      triadic.forEach((color) => {
-        triadicGrid.appendChild(createPaletteSwatch(color));
-      });
-    }
-
-    // Update analogous grid
-    const analogousGrid = document.getElementById("analogousGrid");
-    if (analogousGrid) {
-      analogousGrid.innerHTML = "";
-      analogous.forEach((color) => {
-        analogousGrid.appendChild(createPaletteSwatch(color));
-      });
-    }
+    // Initial render
+    renderInputs();
   }
 
   function updateColor() {
@@ -375,8 +343,7 @@ document.addEventListener("DOMContentLoaded", () => {
     colorPreview.style.backgroundColor = colorValue;
     hexOutput.textContent = colorValue.toUpperCase();
 
-    // Update palette when color changes
-    updatePalette(colorValue);
+
 
     // --- Accessibility: Set label color based on background ---
     // Basic contrast check (can be improved with proper WCAG calculation)
@@ -438,6 +405,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // Event Listeners
     colorInput.addEventListener("input", updateColor);
     colorPreview.addEventListener("click", copyHexToClipboard);
+
+    // Initialize Converter
+    setupColorConverter();
   } else {
     console.error("Color picker elements not found!");
   }
@@ -547,9 +517,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const diffHtml = diffWords(words1, words2);
       if (
         diffHtml.replace(/<\/?span[^>]*>/g, "").trim() ===
-          originalText.replace(/\s+/g, " ").trim() &&
+        originalText.replace(/\s+/g, " ").trim() &&
         diffHtml.replace(/<\/?span[^>]*>/g, "").trim() ===
-          newText.replace(/\s+/g, " ").trim() &&
+        newText.replace(/\s+/g, " ").trim() &&
         originalText.trim() === newText.trim()
       ) {
         diffResultDiv.innerHTML = "The texts are identical!";
