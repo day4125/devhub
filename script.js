@@ -214,22 +214,23 @@ document.addEventListener("DOMContentLoaded", () => {
   function setupColorConverter() {
     const inputFormat = document.getElementById("inputFormat");
     const outputFormat = document.getElementById("outputFormat");
-    const inputContainer = document.getElementById("inputContainer");
+    const dynamicInputContainer = document.getElementById("dynamicInputContainer");
     const converterOutput = document.getElementById("converterOutput");
     const copyBtn = document.getElementById("copyConverterOutput");
+    const pasteBtn = document.getElementById("pasteToInput");
 
-    if (!inputFormat || !outputFormat || !inputContainer) return;
+    if (!inputFormat || !outputFormat || !dynamicInputContainer) return;
 
     // Helper to clear and create inputs
     function renderInputs() {
       const format = inputFormat.value;
-      inputContainer.innerHTML = "";
+      dynamicInputContainer.innerHTML = "";
 
       const input = document.createElement("input");
       input.type = "text";
-      input.id = "colorTextInput";
+      input.id = "colorTextInput"; // Keep ID for easy access
       input.addEventListener("input", handleConversion);
-      inputContainer.appendChild(input);
+      dynamicInputContainer.appendChild(input);
 
       if (format === "hex") {
         input.placeholder = "#000000";
@@ -239,15 +240,17 @@ document.addEventListener("DOMContentLoaded", () => {
       } else if (format === "hsl") {
         input.placeholder = "hsl(0, 100%, 50%)";
       }
-      // Don't trigger conversion immediately on switch to keep input empty/clean or preserve value?
-      // Since we clear input, we can't really convert. Maybe clear output too.
+
       converterOutput.value = "";
     }
 
     function handleConversion() {
       const iFormat = inputFormat.value;
       const oFormat = outputFormat.value;
-      const inputValue = document.getElementById("colorTextInput").value.trim();
+      const inputElement = document.getElementById("colorTextInput");
+      if (!inputElement) return;
+
+      const inputValue = inputElement.value.trim();
 
       if (!inputValue) {
         converterOutput.value = "";
@@ -275,8 +278,6 @@ document.addEventListener("DOMContentLoaded", () => {
         // Match numbers, ignore other chars slightly but respect order
         const matches = inputValue.match(/-?\d+(\.\d+)?/g);
         if (!matches || matches.length < 3) {
-          // Don't show error immediately while typing? Or maybe subtle one.
-          // For now, if incomplete, maybe just return
           return;
         }
         r = parseFloat(matches[0]);
@@ -322,6 +323,35 @@ document.addEventListener("DOMContentLoaded", () => {
       converterOutput.value = result;
     }
 
+    // Manage Format Selections to prevent same input/output format
+    function updateFormatOptions() {
+      const currentInput = inputFormat.value;
+      const currentOutput = outputFormat.value;
+
+      // If Input changed and matches Output, switch Output
+      // If Output changed and matches Input, switch Input
+
+      // Specifically: disable currentInput in outputFormat options
+      Array.from(outputFormat.options).forEach(opt => {
+        opt.disabled = (opt.value === currentInput);
+      });
+
+      // Disable currentOutput in inputFormat options
+      Array.from(inputFormat.options).forEach(opt => {
+        opt.disabled = (opt.value === currentOutput);
+      });
+
+      // Auto-switch if invalid
+      if (currentInput === currentOutput) {
+        // Try to find a valid option for Output first
+        const validOutput = Array.from(outputFormat.options).find(opt => !opt.disabled);
+        if (validOutput) {
+          outputFormat.value = validOutput.value;
+          handleConversion(); // Re-convert with new format
+        }
+      }
+    }
+
     // copy functionality
     copyBtn.addEventListener("click", () => {
       if (converterOutput.value && converterOutput.value !== "Ogiltig HEX") {
@@ -333,11 +363,42 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
+    // Paste functionality
+    if (pasteBtn) {
+      pasteBtn.addEventListener("click", async () => {
+        try {
+          const text = await navigator.clipboard.readText();
+          const input = document.getElementById("colorTextInput");
+          if (input) {
+            input.value = text;
+            handleConversion(); // Trigger conversion immediately
+
+            // Visual feedback
+            const original = pasteBtn.textContent;
+            pasteBtn.textContent = "✅";
+            setTimeout(() => pasteBtn.textContent = original, 1500);
+          }
+        } catch (err) {
+          console.error('Failed to read clipboard contents: ', err);
+          pasteBtn.textContent = "❌"; // Error feedback
+          setTimeout(() => pasteBtn.textContent = "📋", 1500);
+        }
+      });
+    }
+
     // Listeners
-    inputFormat.addEventListener("change", renderInputs);
-    outputFormat.addEventListener("change", handleConversion);
+    inputFormat.addEventListener("change", () => {
+      updateFormatOptions();
+      renderInputs();
+    });
+
+    outputFormat.addEventListener("change", () => {
+      updateFormatOptions();
+      handleConversion();
+    });
 
     // Initial render
+    updateFormatOptions(); // Run logic once to set initial disabled states if any matches
     renderInputs();
   }
 

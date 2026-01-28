@@ -659,6 +659,12 @@ body.dark-mode .theme-toggle-button {
     height: auto;
     border-right: none;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 0 15px;
   }
 
   body.dark-mode .sidebar {
@@ -666,7 +672,12 @@ body.dark-mode .theme-toggle-button {
   }
 
   .sidebar-header {
-    padding: 15px 0;
+    padding: 10px 0;
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-bottom: none;
   }
 
   .app-icon {
@@ -675,10 +686,13 @@ body.dark-mode .theme-toggle-button {
 
   .tab-nav {
     flex-direction: row;
-    justify-content: flex-start;
-    gap: 15px;
+    justify-content: center;
+    gap: 20px;
     padding: 10px 0;
-    align-items: flex-start;
+    align-items: center;
+    margin: 0;
+    padding-top: 0;
+    flex: unset;
   }
 
   .tab-item {
@@ -696,6 +710,8 @@ body.dark-mode .theme-toggle-button {
 
   .tool-card {
     padding: 20px;
+    max-width: 460px;
+    margin: 0 auto;
   }
 
   .tool-card h1 {
@@ -809,19 +825,15 @@ body.dark-mode .converter-group input {
   gap: 10px;
 }
 
-.input-container input {
+.input-container input,
+#dynamicInputContainer input {
   flex: 1;
   min-width: 0;
+  width: 100%;
+  /* Ensure it fills the dynamic container */
 }
 
-.converter-arrow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.2rem;
-  color: #5f6368;
-  padding: 5px;
-}
+
 
 .output-container {
   display: flex;
@@ -838,7 +850,8 @@ body.dark-mode .output-container input {
   background-color: #2a2a2a;
 }
 
-#copyConverterOutput {
+#copyConverterOutput,
+#pasteToInput {
   padding: 0 15px;
   background-color: #f1f3f4;
   border: 1px solid #dfe1e5;
@@ -851,20 +864,24 @@ body.dark-mode .output-container input {
   justify-content: center;
 }
 
-body.dark-mode #copyConverterOutput {
+body.dark-mode #copyConverterOutput,
+body.dark-mode #pasteToInput {
   background-color: #333;
   border-color: #555;
 }
 
-#copyConverterOutput:hover {
+#copyConverterOutput:hover,
+#pasteToInput:hover {
   background-color: #e8eaed;
 }
 
-body.dark-mode #copyConverterOutput:hover {
+body.dark-mode #copyConverterOutput:hover,
+body.dark-mode #pasteToInput:hover {
   background-color: #444;
 }
 
-#copyConverterOutput:active {
+#copyConverterOutput:active,
+#pasteToInput:active {
   transform: scale(0.95);
 }
 
@@ -874,9 +891,7 @@ body.dark-mode #copyConverterOutput:hover {
     align-items: flex-end;
   }
 
-  .converter-arrow {
-    padding-bottom: 12px;
-  }
+
 }
 
 
@@ -889,6 +904,7 @@ body.dark-mode #copyConverterOutput:hover {
   .tool-card {
     padding: 15px;
     margin: 0 5px;
+    max-width: 340px;
   }
 
   .tool-card h1 {
@@ -924,6 +940,7 @@ body.dark-mode #copyConverterOutput:hover {
   .tool-card {
     padding: 12px;
     margin: 0 2px;
+    max-width: 340px;
   }
 
   .tool-card h1 {

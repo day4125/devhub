@@ -124,23 +124,22 @@
                   <option value="hsl">HSL</option>
                 </select>
 
-                <div id="inputContainer" class="input-container">
-                  <!-- Dynamic inputs will be injected here -->
-                  <input type="text" id="hexInput" placeholder="#000000" maxlength="7">
+                <div class="input-container">
+                  <div id="dynamicInputContainer" style="flex: 1; display: flex;">
+                    <input type="text" id="hexInput" placeholder="#000000" maxlength="7">
+                  </div>
+                  <button id="pasteToInput" title="Klistra in">📋</button>
                 </div>
               </div>
 
-              <!-- Swap Button (Optional visual or functional) -->
-              <div class="converter-arrow">
-                <span>⬇️</span>
-              </div>
+
 
               <!-- Output Side -->
               <div class="converter-group">
                 <label for="outputFormat">Till:</label>
                 <select id="outputFormat">
-                  <option value="rgb" selected>RGB</option>
                   <option value="hex">HEX</option>
+                  <option value="rgb" selected>RGB</option>
                   <option value="hsl">HSL</option>
                 </select>
 
