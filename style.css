@@ -173,7 +173,6 @@ body.dark-mode .main-content {
   flex-direction: column;
   max-width: 600px;
   width: 100%;
-  overflow: hidden;
 }
 
 body.dark-mode .tool-card {
@@ -298,6 +297,90 @@ body.dark-mode .collapsible {
   flex-wrap: wrap;
   gap: 10px;
   justify-content: flex-start;
+}
+
+/* --- Info Icon Styles --- */
+.action-btn-with-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+}
+
+.info-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  font-size: 0.8rem;
+  font-family: serif;
+  font-weight: bold;
+  cursor: help;
+  transition: all 0.2s ease;
+}
+
+.info-icon:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: #fff;
+}
+
+/* Tooltip for Info Icon */
+.info-icon .tooltip-text {
+  visibwlity: hidden;
+  width: 200px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px;
+  position: absolute;
+  z-index: 10;
+  bottom: 140%;
+  /* Position above */
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  font-weight: normal;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  pointer-events: none;
+  font-family: "Roboto", sans-serif;
+  /* Reset font from icon */
+}
+
+.info-icon .tooltip-text::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #333 transparent transparent transparent;
+}
+
+.info-icon:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+body.dark-mode .info-icon .tooltip-text {
+  background-color: #555;
+  border: 1px solid #777;
+}
+
+body.dark-mode .info-icon .tooltip-text::after {
+  border-color: #555 transparent transparent transparent;
 }
 
 /* --- Consolidated Button Styles --- */

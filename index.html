@@ -41,14 +41,18 @@
       <!-- Text Manipulator Tab -->
       <div id="text-manipulator" class="tab-content active">
         <div class="tool-card">
-          <h1>Text Manipulator</h1>
+          <h1>Textmanipulator</h1>
           <div class="input-area">
             <textarea id="inputText" placeholder="Skriv eller klistra in text här..." rows="8"></textarea>
           </div>
 
           <div class="button-area">
-            <button onclick="transformText('removeExtraSpaces')">
-              Ta bort onödiga radbryt, extra mellanrum och vanlig skräpkod
+            <button onclick="transformText('removeExtraSpaces')" class="action-btn-with-info">
+              Rensa text
+              <span class="info-icon" aria-label="Mer information">
+                i
+                <span class="tooltip-text">Ta bort onödiga radbryt, extra mellanrum och vanlig skräpkod</span>
+              </span>
             </button>
             <button class="collapsible">Fler verktyg ▸</button>
             <div class="content">
@@ -112,7 +116,7 @@
 
           <!-- Color Converter Section -->
           <div class="converter-section">
-            <h3>Färgkonverterare</h3>
+            <h1>Färgkonverterare</h1>
 
             <div class="converter-grid">
               <!-- Input Side -->
