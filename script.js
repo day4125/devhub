@@ -3,6 +3,74 @@
 function transformText(operation) {
   const inputTextElement = document.getElementById("inputText");
   let text = inputTextElement.value;
+  const superscriptDigits = {
+    "1": "¹",
+    "2": "²",
+    "3": "³",
+    "4": "⁴",
+    "5": "⁵",
+    "6": "⁶",
+    "7": "⁷",
+    "8": "⁸",
+    "9": "⁹",
+  };
+  const subscriptDigits = {
+    "1": "₁",
+    "2": "₂",
+    "3": "₃",
+    "4": "₄",
+    "5": "₅",
+    "6": "₆",
+    "7": "₇",
+    "8": "₈",
+    "9": "₉",
+  };
+  const superscriptLetters = {
+    a: "ᵃ",
+    b: "ᵇ",
+    c: "ᶜ",
+    d: "ᵈ",
+    e: "ᵉ",
+    f: "ᶠ",
+    g: "ᵍ",
+    h: "ʰ",
+    i: "ⁱ",
+    j: "ʲ",
+    k: "ᵏ",
+    l: "ˡ",
+    m: "ᵐ",
+    n: "ⁿ",
+    o: "ᵒ",
+    p: "ᵖ",
+    r: "ʳ",
+    s: "ˢ",
+    t: "ᵗ",
+    u: "ᵘ",
+    v: "ᵛ",
+    w: "ʷ",
+    x: "ˣ",
+    y: "ʸ",
+    z: "ᶻ",
+  };
+  const subscriptLetters = {
+    a: "ₐ",
+    e: "ₑ",
+    h: "ₕ",
+    i: "ᵢ",
+    j: "ⱼ",
+    k: "ₖ",
+    l: "ₗ",
+    m: "ₘ",
+    n: "ₙ",
+    o: "ₒ",
+    p: "ₚ",
+    r: "ᵣ",
+    s: "ₛ",
+    t: "ₜ",
+    u: "ᵤ",
+    v: "ᵥ",
+    x: "ₓ",
+  };
 
   switch (operation) {
     case "toUpperCase":
@@ -20,6 +88,18 @@ function transformText(operation) {
       break;
     case "smartQuotes":
       text = text.replace(/"/g, "”");
+      break;
+    case "toSuperscriptNumbers":
+      text = text.replace(/[1-9]/g, (digit) => superscriptDigits[digit]);
+      break;
+    case "toSubscriptNumbers":
+      text = text.replace(/[1-9]/g, (digit) => subscriptDigits[digit]);
+      break;
+    case "toSuperscriptLetters":
+      text = text.replace(/[a-z]/g, (letter) => superscriptLetters[letter] || letter);
+      break;
+    case "toSubscriptLetters":
+      text = text.replace(/[a-z]/g, (letter) => subscriptLetters[letter] || letter);
       break;
   }
 
@@ -82,6 +162,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- Dark mode functionality ---
   const themeToggle = document.getElementById("themeToggle");
   const body = document.body;
+  const inputTextElement = document.getElementById("inputText");
+  const copyInputBtn = document.getElementById("copyInputText");
 
   // Function to set correct icon based on theme
   function setThemeIcon() {
@@ -114,6 +196,26 @@ document.addEventListener("DOMContentLoaded", () => {
   // Add event listener to button only if it exists
   if (themeToggle) {
     themeToggle.addEventListener("click", toggleTheme);
+  }
+
+  if (copyInputBtn && inputTextElement) {
+    copyInputBtn.addEventListener("click", async () => {
+      if (!inputTextElement.value.trim()) return;
+
+      const original = copyInputBtn.textContent;
+
+      try {
+        await navigator.clipboard.writeText(inputTextElement.value);
+        copyInputBtn.textContent = "✅";
+      } catch (err) {
+        console.error("Could not copy text:", err);
+        copyInputBtn.textContent = "❌";
+      }
+
+      setTimeout(() => {
+        copyInputBtn.textContent = original;
+      }, 1200);
+    });
   }
 
   //--- Color Picker Functionality ---

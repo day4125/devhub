@@ -216,6 +216,42 @@ body.dark-mode .picker h2 {
 /* Add padding to the top of the textarea to prevent text overlap */
 #text-manipulator textarea#inputText {
   padding-top: 40px;
+  padding-right: 52px;
+  padding-bottom: 44px;
+}
+
+#text-manipulator .textarea-copy-btn {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  width: 34px;
+  height: 34px;
+  border: 1px solid #dfe1e5;
+  border-radius: 6px;
+  background-color: #f1f3f4;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+body.dark-mode #text-manipulator .textarea-copy-btn {
+  background-color: #333;
+  border-color: #555;
+}
+
+#text-manipulator .textarea-copy-btn:hover {
+  background-color: #e8eaed;
+}
+
+body.dark-mode #text-manipulator .textarea-copy-btn:hover {
+  background-color: #444;
+}
+
+#text-manipulator .textarea-copy-btn:active {
+  transform: scale(0.95);
 }
 
 body.dark-mode #text-manipulator h1 {
@@ -290,6 +326,16 @@ body.dark-mode .collapsible {
   margin: 5px 0;
   width: 100%;
   box-sizing: border-box;
+}
+
+.content .dual-transform-row {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+.content .dual-transform-row button {
+  width: calc(50% - 5px);
 }
 
 #text-manipulator .button-area {

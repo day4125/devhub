@@ -52,6 +52,13 @@
                 id="inputText"
                 placeholder="Skriv eller klistra in text här..."
                 rows="8"></textarea>
+              <button
+                id="copyInputText"
+                class="textarea-copy-btn"
+                type="button"
+                title="Kopiera text">
+                📋
+              </button>
             </div>
 
             <div class="button-area">
@@ -69,6 +76,22 @@
               </button>
               <button class="collapsible">Fler verktyg ▸</button>
               <div class="content">
+                <div class="dual-transform-row">
+                  <button onclick="transformText('toSuperscriptNumbers')">
+                    Upphöjt 1-9
+                  </button>
+                  <button onclick="transformText('toSubscriptNumbers')">
+                    Nedsänkt 1-9
+                  </button>
+                </div>
+                <div class="dual-transform-row">
+                  <button onclick="transformText('toSuperscriptLetters')">
+                    Upphöjt a-z
+                  </button>
+                  <button onclick="transformText('toSubscriptLetters')">
+                    Nedsänkt a-z
+                  </button>
+                </div>
                 <button onclick="transformText('toUpperCase')">VERSALER</button>
                 <button onclick="transformText('toLowerCase')">gemener</button>
                 <button onclick="extractInformation('email')">
