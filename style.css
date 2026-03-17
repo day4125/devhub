@@ -306,6 +306,7 @@ body.dark-mode .collapsible {
   justify-content: center;
   gap: 10px;
   position: relative;
+  padding-left: 44px;
 }
 
 .info-icon {
@@ -315,7 +316,7 @@ body.dark-mode .collapsible {
   width: 20px;
   height: 20px;
   position: absolute;
-  right: 15px;
+  left: 15px;
   top: 50%;
   transform: translateY(-50%);
   border-radius: 50%;
@@ -334,8 +335,9 @@ body.dark-mode .collapsible {
 
 /* Tooltip for Info Icon */
 .info-icon .tooltip-text {
-  visibwlity: hidden;
-  width: 200px;
+  visibility: hidden;
+  width: min(200px, calc(100vw - 24px));
+  max-width: calc(100vw - 24px);
   background-color: #333;
   color: #fff;
   text-align: center;
@@ -345,8 +347,8 @@ body.dark-mode .collapsible {
   z-index: 10;
   bottom: 140%;
   /* Position above */
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  transform: none;
   opacity: 0;
   transition: opacity 0.3s;
   font-size: 0.85rem;
@@ -362,7 +364,7 @@ body.dark-mode .collapsible {
   content: "";
   position: absolute;
   top: 100%;
-  left: 50%;
+  left: 14px;
   margin-left: -5px;
   border-width: 5px;
   border-style: solid;
@@ -381,6 +383,13 @@ body.dark-mode .info-icon .tooltip-text {
 
 body.dark-mode .info-icon .tooltip-text::after {
   border-color: #555 transparent transparent transparent;
+}
+
+@media (max-width: 420px) {
+  .info-icon .tooltip-text {
+    width: min(180px, calc(100vw - 24px));
+    font-size: 0.8rem;
+  }
 }
 
 /* --- Consolidated Button Styles --- */

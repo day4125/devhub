@@ -1,165 +1,188 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="DevHub" />
+    <link rel="apple-touch-icon" href="/images/icon.png" />
+    <link rel="stylesheet" href="style.css" />
+    <title>DevHub - Tools</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="DevHub" />
-  <link rel="apple-touch-icon" href="/images/icon.png" />
-  <link rel="stylesheet" href="style.css" />
-  <title>DevHub - Tools</title>
-</head>
+  <body>
+    <div class="app-container">
+      <!-- Left Sidebar with Tab Navigation -->
+      <nav class="sidebar">
+        <div class="sidebar-header">
+          <button
+            id="themeToggle"
+            class="theme-toggle-button"
+            aria-label="Toggle theme">
+            ☀️
+          </button>
+        </div>
+        <ul class="tab-nav">
+          <li class="tab-item active" data-tab="text-manipulator">
+            <span class="tab-icon">📝</span>
+          </li>
+          <li class="tab-item" data-tab="diff-checker">
+            <span class="tab-icon">🔍</span>
+          </li>
+          <li class="tab-item" data-tab="color-picker">
+            <span class="tab-icon">🎨</span>
+          </li>
+        </ul>
+      </nav>
 
-<body>
-  <div class="app-container">
-    <!-- Left Sidebar with Tab Navigation -->
-    <nav class="sidebar">
-      <div class="sidebar-header">
-        <button id="themeToggle" class="theme-toggle-button" aria-label="Toggle theme">
-          ☀️
-        </button>
-      </div>
-      <ul class="tab-nav">
-        <li class="tab-item active" data-tab="text-manipulator">
-          <span class="tab-icon">📝</span>
-        </li>
-        <li class="tab-item" data-tab="diff-checker">
-          <span class="tab-icon">🔍</span>
-        </li>
-        <li class="tab-item" data-tab="color-picker">
-          <span class="tab-icon">🎨</span>
-        </li>
-      </ul>
-    </nav>
+      <!-- Main Content Area -->
+      <main class="main-content">
+        <!-- Text Manipulator Tab -->
+        <div id="text-manipulator" class="tab-content active">
+          <div class="tool-card">
+            <h1>Textmanipulator</h1>
+            <div class="input-area">
+              <textarea
+                id="inputText"
+                placeholder="Skriv eller klistra in text här..."
+                rows="8"></textarea>
+            </div>
 
-    <!-- Main Content Area -->
-    <main class="main-content">
-      <!-- Text Manipulator Tab -->
-      <div id="text-manipulator" class="tab-content active">
-        <div class="tool-card">
-          <h1>Textmanipulator</h1>
-          <div class="input-area">
-            <textarea id="inputText" placeholder="Skriv eller klistra in text här..." rows="8"></textarea>
-          </div>
-
-          <div class="button-area">
-            <button onclick="transformText('removeExtraSpaces')" class="action-btn-with-info">
-              Rensa text
-              <span class="info-icon" aria-label="Mer information">
-                i
-                <span class="tooltip-text">Ta bort onödiga radbryt, extra mellanrum och vanlig skräpkod</span>
-              </span>
-            </button>
-            <button class="collapsible">Fler verktyg ▸</button>
-            <div class="content">
-              <button onclick="transformText('toUpperCase')">VERSALER</button>
-              <button onclick="transformText('toLowerCase')">gemener</button>
-              <button onclick="extractInformation('email')">
-                Extrahera e-postadresser
+            <div class="button-area">
+              <button
+                onclick="transformText('removeExtraSpaces')"
+                class="action-btn-with-info">
+                <span class="info-icon" aria-label="Mer information">
+                  i
+                  <span class="tooltip-text"
+                    >Ta bort onödiga radbryt, extra mellanrum och vanlig
+                    skräpkod</span
+                  >
+                </span>
+                Rensa text
               </button>
-              <button onclick="extractInformation('url')">
-                Extrahera URL
-              </button>
+              <button class="collapsible">Fler verktyg ▸</button>
+              <div class="content">
+                <button onclick="transformText('toUpperCase')">VERSALER</button>
+                <button onclick="transformText('toLowerCase')">gemener</button>
+                <button onclick="extractInformation('email')">
+                  Extrahera e-postadresser
+                </button>
+                <button onclick="extractInformation('url')">
+                  Extrahera URL
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- Diff Checker Tab -->
-      <div id="diff-checker" class="tab-content">
-        <div class="tool-card">
-          <h1>Diff Checker</h1>
+        <!-- Diff Checker Tab -->
+        <div id="diff-checker" class="tab-content">
+          <div class="tool-card">
+            <h1>Diff Checker</h1>
 
-          <div class="input-section">
-            <div class="textarea-group">
-              <label for="originalText">Text 1:</label>
-              <textarea id="originalText"></textarea>
+            <div class="input-section">
+              <div class="textarea-group">
+                <label for="originalText">Text 1:</label>
+                <textarea id="originalText"></textarea>
+              </div>
+              <div class="textarea-group">
+                <label for="newText">Text 2:</label>
+                <textarea id="newText"></textarea>
+              </div>
             </div>
-            <div class="textarea-group">
-              <label for="newText">Text 2:</label>
-              <textarea id="newText"></textarea>
-            </div>
-          </div>
 
-          <button id="compareBtn">Jämför</button>
+            <button id="compareBtn">Jämför</button>
 
-          <div class="diff-output">
-            <h2>Skillnader:</h2>
-            <div id="diffResult" class="diff-result-content"></div>
-            <div class="legend">
-              <span class="added-legend">Tillagt</span>
-              <span class="removed-legend">Borttaget</span>
+            <div class="diff-output">
+              <h2>Skillnader:</h2>
+              <div id="diffResult" class="diff-result-content"></div>
+              <div class="legend">
+                <span class="added-legend">Tillagt</span>
+                <span class="removed-legend">Borttaget</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- Color Picker Tab -->
-      <div id="color-picker" class="tab-content">
-        <div class="tool-card picker">
-          <h1>Färgväljare</h1>
-          <div class="color-controls">
-            <div class="color-preview" id="colorPreview" title="Klicka för att kopiera hex-kod">
-              <span class="color-label">Klicka för att kopiera hex-kod</span>
+        <!-- Color Picker Tab -->
+        <div id="color-picker" class="tab-content">
+          <div class="tool-card picker">
+            <h1>Färgväljare</h1>
+            <div class="color-controls">
+              <div
+                class="color-preview"
+                id="colorPreview"
+                title="Klicka för att kopiera hex-kod">
+                <span class="color-label">Klicka för att kopiera hex-kod</span>
+              </div>
+
+              <div class="color-picker-wrapper">
+                <input
+                  type="color"
+                  id="colorInput"
+                  value="#4CAF50"
+                  aria-label="Select color" />
+              </div>
+
+              <div class="hex" id="hexOutput">#4CAF50</div>
             </div>
 
-            <div class="color-picker-wrapper">
-              <input type="color" id="colorInput" value="#4CAF50" aria-label="Select color" />
-            </div>
+            <!-- Color Converter Section -->
+            <div class="converter-section">
+              <h1>Färgkonverterare</h1>
 
-            <div class="hex" id="hexOutput">#4CAF50</div>
-          </div>
+              <div class="converter-grid">
+                <!-- Input Side -->
+                <div class="converter-group">
+                  <label for="inputFormat">Från:</label>
+                  <select id="inputFormat">
+                    <option value="hex">HEX</option>
+                    <option value="rgb">RGB</option>
+                    <option value="hsl">HSL</option>
+                  </select>
 
-          <!-- Color Converter Section -->
-          <div class="converter-section">
-            <h1>Färgkonverterare</h1>
-
-            <div class="converter-grid">
-              <!-- Input Side -->
-              <div class="converter-group">
-                <label for="inputFormat">Från:</label>
-                <select id="inputFormat">
-                  <option value="hex">HEX</option>
-                  <option value="rgb">RGB</option>
-                  <option value="hsl">HSL</option>
-                </select>
-
-                <div class="input-container">
-                  <div id="dynamicInputContainer" style="flex: 1; display: flex;">
-                    <input type="text" id="hexInput" placeholder="#000000" maxlength="7">
+                  <div class="input-container">
+                    <div
+                      id="dynamicInputContainer"
+                      style="flex: 1; display: flex">
+                      <input
+                        type="text"
+                        id="hexInput"
+                        placeholder="#000000"
+                        maxlength="7" />
+                    </div>
+                    <button id="pasteToInput" title="Klistra in">📋</button>
                   </div>
-                  <button id="pasteToInput" title="Klistra in">📋</button>
                 </div>
-              </div>
 
+                <!-- Output Side -->
+                <div class="converter-group">
+                  <label for="outputFormat">Till:</label>
+                  <select id="outputFormat">
+                    <option value="hex">HEX</option>
+                    <option value="rgb" selected>RGB</option>
+                    <option value="hsl">HSL</option>
+                  </select>
 
-
-              <!-- Output Side -->
-              <div class="converter-group">
-                <label for="outputFormat">Till:</label>
-                <select id="outputFormat">
-                  <option value="hex">HEX</option>
-                  <option value="rgb" selected>RGB</option>
-                  <option value="hsl">HSL</option>
-                </select>
-
-                <div class="output-container">
-                  <input type="text" id="converterOutput" readonly>
-                  <button id="copyConverterOutput" title="Kopiera">📋</button>
+                  <div class="output-container">
+                    <input type="text" id="converterOutput" readonly />
+                    <button id="copyConverterOutput" title="Kopiera">📋</button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </main>
-  </div>
+      </main>
+    </div>
 
-  <script src="script.js"></script>
-</body>
-
+    <script src="script.js"></script>
+  </body>
 </html>
