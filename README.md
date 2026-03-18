@@ -1,49 +1,68 @@
 # DevHub
 
-Ett samlat verktyg för utvecklare med textmanipulation, diff-jämförelse och färgväljare.
+DevHub är en lokal verktygssamling för utvecklare med tre fristående verktyg i samma gränssnitt: textmanipulering, diff-jämförelse och färgverktyg.
 
-## Funktioner
+## Innehåll
 
 ### 📝 Textmanipulator
 
-- Ta bort onödiga radbrytningar och extra mellanrum
-- Konvertera till versaler/gemener
-- Extrahera e-postadresser och URL:er från text
+- Rensa text (tar bort mjuka bindestreck, radbrytningar och extra mellanrum)
+- Konvertera till versaler eller gemener
+- Konvertera siffror `1-9` till upphöjt eller nedsänkt format
+- Konvertera bokstäver `a-z` till upphöjt eller nedsänkt format (där tecken finns)
+- Extrahera e-postadresser
+- Extrahera URL:er (inklusive `www.`-adresser)
+- Snabbkopiera innehållet i textfältet
 
 ### 🔍 Diff Checker
 
-- Jämför två texter och visar skillnader
-- Markering av tillagda och borttagna delar
-- Ord-för-ord jämförelse
+- Jämför två textfält ord för ord
+- Markerar tillagd text och borttagen text
+- Visar tydlig legend för diff-resultat
 
-### 🎨 Färgväljare
+### 🎨 Färgväljare + färgkonverterare
 
-- Välj färger med färgpalett
-- Kopiera hex-koder till urklipp
-- Automatisk kontrastjustering för bättre läsbarhet
+- Välj färg med inbyggd color picker
+- Visar aktuell hex-kod och låter dig kopiera den
+- Dynamisk kontrast på etiketttext för bättre läsbarhet
+- Konverterar mellan `HEX`, `RGB` och `HSL`
+- Kopiera/klistra in i konverteraren via knappar
 
-## Teknisk information
+## Gränssnitt och beteende
 
-- **Språk:** HTML, CSS, JavaScript (vanilla)
-- **Tema:** Stöd för ljust och mörkt tema
-- **Responsiv:** Anpassar sig för olika skärmstorlekar
-- **Tillgänglighet:** ARIA-labels och tangentbordsnavigering
+- Flikbaserat sidofält för att växla mellan verktyg
+- Ljust/mörkt tema med sparad inställning i `localStorage`
+- Responsiv layout för desktop och mobil
 
-## Användning
+## Teknik
 
-Öppna `index.html` i en webbläsare för att använda verktygen. Alla funktioner fungerar lokalt utan internetanslutning.
+- HTML5
+- CSS3
+- Vanilla JavaScript (ES6+)
+- Inga externa bibliotek
+- Inga nätverksanrop
+- Fungerar helt offline
+
+## Kom igång
+
+1. Klona eller ladda ner projektet.
+2. Öppna `index.html` i en modern webbläsare.
+3. Använd verktygen direkt, ingen installation krävs.
 
 ## Projektstruktur
 
-```
+```text
 devhub/
-├── index.html      # Huvudsida
-├── style.css       # Stilar och tema
-├── script.js       # JavaScript-funktionalitet
-├── images/         # Bilder och ikoner
-└── README.md       # Denna fil
+├── index.html
+├── style.css
+├── script.js
+├── images/
+│   └── icon.png
+├── AGENTS.md
+└── README.md
 ```
 
-## Personligt projekt
+## Noteringar
 
-Detta är ett personligt projekt för att samla användbara utvecklarverktyg jag använder i jobbet på ett ställe. Koden är skriven på engelska för underhållbarhet, men användargränssnittet är på svenska.
+- Urklippsfunktioner använder `navigator.clipboard` och kräver en webbläsarmiljö som tillåter clipboard-API.
+- All data behandlas lokalt i webbläsaren.

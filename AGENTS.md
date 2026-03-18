@@ -1,49 +1,81 @@
 # AGENTS.md
 
+## Instruction Priority
+
+These instructions override default behavior.
+
 ## Project Context
 
-DevHub is a collection of small developer tools (Text Manipulator, Diff Checker, Color Picker).
+DevHub is a collection of small, independent developer tools.
+
+Each tool should be simple, self-contained, and consistent with existing UI.
+
+---
 
 ## Core Rules (HIGH PRIORITY)
 
-- UI text MUST be in Swedish.
-- Code (variables, comments, commit messages) MUST be in English.
-- MUST work offline. Do NOT introduce network requests.
-- Do NOT send any user data externally.
+- UI text MUST be in Swedish
+- Code (variables, comments) MUST be in English
+- MUST work fully offline
+- Do NOT use network requests
+- Do NOT send any data externally
+
+---
 
 ## Tech Constraints
 
 - Use ONLY: HTML5, CSS3, Vanilla JavaScript (ES6+)
 - Do NOT use frameworks (React, Vue, Angular, etc.)
-- Do NOT add external dependencies unless explicitly asked
+- Do NOT add external libraries
+
+---
 
 ## File Responsibilities
 
-- `index.html`: Structure ONLY (no logic)
-- `style.css`: Styling and themes ONLY
-- `script.js`: ALL application logic
+- `index.html`: Structure ONLY (no JS logic)
+- `style.css`: Styling ONLY
+- `script.js`: ALL logic
 
-Do NOT mix responsibilities between files.
+Do NOT mix responsibilities.
 
-## Styling Rules
+---
 
-- Use CSS variables for theming (`:root` and `[data-theme="dark"]`)
-- Maintain visual consistency with existing tools
-- Must be responsive (mobile + desktop)
+## Tool Generation Rules
 
-## Accessibility
+- Each tool MUST be self-contained
+- Do NOT refactor or modify existing tools unless necessary
+- Do NOT redesign existing UI
+- Match existing layout, spacing, and components
+- Keep implementation simple and readable
 
-- Include ARIA labels where relevant
-- Ensure keyboard navigation works
+---
 
-## Feature Guidelines
+## UI Behavior
 
-- New features MUST fit the "developer tool" concept
-- Keep implementations simple and readable
-- Prefer small, modular functions over complex abstractions
+- Follow existing UI patterns exactly
+- Reuse existing classes and styles when possible
+- Ensure responsive layout (mobile + desktop)
 
-## Behavior Guidelines
+---
 
+## Code Style
+
+- Prefer small, simple functions
+- Avoid unnecessary abstractions
 - Do NOT overengineer
-- Do NOT refactor unrelated code
-- Only change what is necessary for the task
+
+---
+
+## Safety Rules
+
+- Only change what is required for the task
+- Do NOT touch unrelated code
+- Do NOT introduce breaking changes
+- Do NOT rename existing classes, IDs, or functions
+
+---
+
+## Feature Fit
+
+- New tools MUST fit the "developer utility" concept
+- Avoid adding features outside this scope

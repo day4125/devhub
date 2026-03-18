@@ -77,19 +77,53 @@
               <button class="collapsible">Fler verktyg ▸</button>
               <div class="content">
                 <div class="dual-transform-row">
-                  <button onclick="transformText('toSuperscriptNumbers')">
-                    Upphöjt 1-9
+                  <button
+                    onclick="transformText('toSuperscriptNumbers')"
+                    class="action-btn-with-info">
+                    <span class="info-icon" aria-label="Mer information">
+                      i
+                      <span class="tooltip-text"
+                        >Konvetera alla siffror i textrutan till upphöjda.</span
+                      >
+                    </span>
+                    Superscript 1-9
                   </button>
-                  <button onclick="transformText('toSubscriptNumbers')">
-                    Nedsänkt 1-9
+                  <button
+                    onclick="transformText('toSubscriptNumbers')"
+                    class="action-btn-with-info">
+                    <span class="info-icon" aria-label="Mer information">
+                      i
+                      <span class="tooltip-text"
+                        >Konvetera alla siffror i textrutan till nedsänkta.</span
+                      >
+                    </span>
+                    Subscript 1-9
                   </button>
                 </div>
                 <div class="dual-transform-row">
-                  <button onclick="transformText('toSuperscriptLetters')">
-                    Upphöjt a-z
+                  <button
+                    onclick="transformText('toSuperscriptLetters')"
+                    class="action-btn-with-info">
+                    <span class="info-icon" aria-label="Mer information">
+                      i
+                      <span class="tooltip-text"
+                        >Konvetera alla bokstäver i textrutan till upphöjda.
+                        (OBS! alla bokstäver har inte stöd i unicode)</span
+                      >
+                    </span>
+                    Superscript a-z
                   </button>
-                  <button onclick="transformText('toSubscriptLetters')">
-                    Nedsänkt a-z
+                  <button
+                    onclick="transformText('toSubscriptLetters')"
+                    class="action-btn-with-info">
+                    <span class="info-icon" aria-label="Mer information">
+                      i
+                      <span class="tooltip-text"
+                        >Konvetera alla bokstäver i textrutan till nedsänkta.
+                        (OBS! alla bokstäver har inte stöd i unicode)</span
+                      >
+                    </span>
+                    Subscript a-z
                   </button>
                 </div>
                 <button onclick="transformText('toUpperCase')">VERSALER</button>
