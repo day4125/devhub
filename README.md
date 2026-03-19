@@ -1,6 +1,11 @@
 # DevHub
 
-DevHub är en lokal verktygssamling för utvecklare med tre fristående verktyg i samma gränssnitt: textmanipulering, diff-jämförelse och färgverktyg.
+DevHub är javascript-verktyg jag använder regelbundet samlade i samma gränssnitt: textmanipulering, diff-jämförelse och färgverktyg.
+
+1. Klona eller ladda ner projektet.
+2. Öppna `index.html` i webbläsaren.
+3. Använd verktygen direkt, ingen installation krävs.
+4. Senaste versionen finns på https://github.com/day4125/devhub
 
 ## Innehåll
 
@@ -32,7 +37,6 @@ DevHub är en lokal verktygssamling för utvecklare med tre fristående verktyg 
 
 - Flikbaserat sidofält för att växla mellan verktyg
 - Ljust/mörkt tema med sparad inställning i `localStorage`
-- Responsiv layout för desktop och mobil
 
 ## Teknik
 
@@ -42,25 +46,6 @@ DevHub är en lokal verktygssamling för utvecklare med tre fristående verktyg 
 - Inga externa bibliotek
 - Inga nätverksanrop
 - Fungerar helt offline
-
-## Kom igång
-
-1. Klona eller ladda ner projektet.
-2. Öppna `index.html` i en modern webbläsare.
-3. Använd verktygen direkt, ingen installation krävs.
-
-## Projektstruktur
-
-```text
-devhub/
-├── index.html
-├── style.css
-├── script.js
-├── images/
-│   └── icon.png
-├── AGENTS.md
-└── README.md
-```
 
 ## Noteringar
 
