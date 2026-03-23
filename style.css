@@ -7,7 +7,9 @@ body {
   font-family: "Roboto", sans-serif;
   margin: 0;
   background-color: #f8f9fa;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
   color: #202124;
   padding: 0;
   height: 100vh;
@@ -113,7 +115,9 @@ body.dark-mode .tab-item.active {
 .tab-icon {
   font-size: 1.5rem;
   filter: grayscale(100%);
-  transition: filter 0.2s ease, transform 0.2s ease;
+  transition:
+    filter 0.2s ease,
+    transform 0.2s ease;
 }
 
 .tab-item:hover .tab-icon {
@@ -167,7 +171,9 @@ body.dark-mode .main-content {
   border-radius: 12px;
   padding: 25px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
   height: fit-content;
   display: flex;
   flex-direction: column;
@@ -270,7 +276,9 @@ body.dark-mode #text-manipulator h1 {
   line-height: 1.5;
   color: #202124;
   background-color: #f8f9fa;
-  transition: border-color 0.3s ease, background-color 0.3s ease,
+  transition:
+    border-color 0.3s ease,
+    background-color 0.3s ease,
     color 0.3s ease;
 }
 
@@ -316,7 +324,7 @@ body.dark-mode .collapsible {
 .content {
   display: none;
   margin-top: 0.5em;
-  border-left: 1px solid rgb(224, 224, 224);
+  border-left: 1px solid rgba(224, 224, 224, 0.539);
   padding-left: 10px;
   width: 100%;
   box-sizing: border-box;
@@ -449,7 +457,10 @@ body.dark-mode .info-icon .tooltip-text::after {
   color: #ffffff;
   font-size: 0.95rem;
   cursor: pointer;
-  transition: background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease,
+    color 0.2s ease;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
@@ -508,7 +519,9 @@ body.dark-mode #color-picker h1 {
   border: 1px solid #ccc;
   cursor: pointer;
   position: relative;
-  transition: transform 0.1s ease, background-color 0.3s ease,
+  transition:
+    transform 0.1s ease,
+    background-color 0.3s ease,
     border-color 0.3s ease;
   display: flex;
   justify-content: center;
@@ -529,7 +542,9 @@ body.dark-mode .color-preview {
   pointer-events: none;
   padding: 5px;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-  transition: color 0.3s ease, text-shadow 0.3s ease;
+  transition:
+    color 0.3s ease,
+    text-shadow 0.3s ease;
 }
 
 .color-preview:active {
@@ -618,7 +633,9 @@ body.dark-mode #diff-checker .diff-output h2 {
   font-size: 0.95rem;
   line-height: 1.6;
   color: #202124;
-  transition: background-color 0.3s ease, border-color 0.3s ease,
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
     color 0.3s ease;
 }
 
@@ -705,7 +722,10 @@ body.dark-mode #diff-checker .removed-legend {
   align-items: center;
   font-size: 22px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease,
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    transform 0.2s ease,
     border-color 0.2s;
   padding: 0;
   margin: 0;
@@ -740,14 +760,16 @@ body.dark-mode .theme-toggle-button {
   height: 58px;
   border-radius: 50%;
   padding: 4px;
-  background: conic-gradient(red,
-      orange,
-      yellow,
-      lime,
-      cyan,
-      blue,
-      violet,
-      red);
+  background: conic-gradient(
+    red,
+    orange,
+    yellow,
+    lime,
+    cyan,
+    blue,
+    violet,
+    red
+  );
   animation: spinBorder 20s linear infinite;
 }
 
@@ -829,7 +851,7 @@ body.dark-mode .theme-toggle-button {
     padding: 10px 0;
     align-items: center;
     margin: 0;
-    padding-top: 0;
+    padding-top: 0, 5em;
     flex: unset;
   }
 
@@ -971,8 +993,6 @@ body.dark-mode .converter-group input {
   /* Ensure it fills the dynamic container */
 }
 
-
-
 .output-container {
   display: flex;
   gap: 10px;
@@ -1028,10 +1048,7 @@ body.dark-mode #pasteToInput:hover {
     flex-direction: row;
     align-items: flex-end;
   }
-
-
 }
-
 
 /* Additional responsive breakpoints for very narrow screens */
 @media (max-width: 480px) {
@@ -1070,8 +1087,6 @@ body.dark-mode #pasteToInput:hover {
     font-size: 0.8rem;
     padding: 3px 8px;
   }
-
-
 }
 
 @media (max-width: 360px) {
@@ -1098,6 +1113,4 @@ body.dark-mode #pasteToInput:hover {
     width: 40px;
     height: 40px;
   }
-
-
 }
