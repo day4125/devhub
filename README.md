@@ -13,7 +13,7 @@ DevHub är javascript-verktyg jag använder regelbundet samlade i samma gränssn
 
 - Rensa text (tar bort mjuka bindestreck, radbrytningar och extra mellanrum)
 - Konvertera till versaler eller gemener
-- Konvertera siffror `1-9` till upphöjt eller nedsänkt format
+- Konvertera siffror `0-9` till upphöjt eller nedsänkt format
 - Konvertera bokstäver `a-z` till upphöjt eller nedsänkt format (där tecken finns)
 - Extrahera e-postadresser
 - Extrahera URL:er (inklusive `www.`-adresser)
