@@ -4,6 +4,7 @@ function transformText(operation) {
   const inputTextElement = document.getElementById("inputText");
   let text = inputTextElement.value;
   const superscriptDigits = {
+    "0": "⁰",
     "1": "¹",
     "2": "²",
     "3": "³",
@@ -15,6 +16,7 @@ function transformText(operation) {
     "9": "⁹",
   };
   const subscriptDigits = {
+    "0": "₀",
     "1": "₁",
     "2": "₂",
     "3": "₃",
@@ -90,10 +92,10 @@ function transformText(operation) {
       text = text.replace(/"/g, "”");
       break;
     case "toSuperscriptNumbers":
-      text = text.replace(/[1-9]/g, (digit) => superscriptDigits[digit]);
+      text = text.replace(/[0-9]/g, (digit) => superscriptDigits[digit]);
       break;
     case "toSubscriptNumbers":
-      text = text.replace(/[1-9]/g, (digit) => subscriptDigits[digit]);
+      text = text.replace(/[0-9]/g, (digit) => subscriptDigits[digit]);
       break;
     case "toSuperscriptLetters":
       text = text.replace(/[a-z]/g, (letter) => superscriptLetters[letter] || letter);
